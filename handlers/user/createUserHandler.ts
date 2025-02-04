@@ -23,3 +23,8 @@ export const createUserHandler: CommandHandler<
 
     return { success: true };
 };
+
+
+export const validateCreateUserInput = (data: any) => {
+  return CreateUserInput.parse(data);
+};

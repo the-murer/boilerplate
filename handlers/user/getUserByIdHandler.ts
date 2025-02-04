@@ -27,3 +27,9 @@ export const getUserByIdHandler: CommandHandler<
 
   return { success: true, user };
 };
+
+
+
+export const validateGetUserByIdInput = (data: any) => {
+  return GetUserByIdInput.parse(data);
+};

@@ -11,6 +11,7 @@ import {
 
 import { MoonIcon } from "lucide-react";
 import React from "react";
+import { ThemeSwitch } from "./themeSwitch";
 
 export const AcmeLogo = () => {
   return (
@@ -51,15 +52,14 @@ const NavBar = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button color="foreground" variant="flat">
-            <MoonIcon />
-          </Button>
+          <ThemeSwitch />
+
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Link href="login">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button as={Link} color="primary" href="signup" variant="flat">
             Sign Up
           </Button>
         </NavbarItem>

@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import User from "@/database/models/User";
-import { createUserHandler } from "@/handlers/user/createUserHandler";
+import { createUserHandler, validateCreateUserInput } from "@/handlers/user/createUserHandler";
 import dbConnect from "@/database/dbConnect";
-import { getUserByIdHandler } from "@/handlers/user/getUserByIdHandler";
+import { getUserByIdHandler, validateGetUserByIdInput } from "@/handlers/user/getUserByIdHandler";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,9 +15,11 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      return getUserByIdHandler(req.body);
+      const getData = validateGetUserByIdInput(req.body);
+      return getUserByIdHandler(getData);
     case "POST":
-      return createUserHandler(req.body);
+      const postData = validateCreateUserInput(req.body);
+      return createUserHandler(postData);
     default:
       res.status(400).json({ success: false });
       break;
