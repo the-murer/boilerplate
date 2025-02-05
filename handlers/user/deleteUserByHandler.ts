@@ -1,8 +1,10 @@
 import { DeleteUserByIdHandler as Handler } from "@/serializers/user/deleteUserByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
+import dbConnect from "@/database/dbConnect";
 import { deleteUserById } from "@/database/repository/userRepository";
 
 export const deleteUserByIdHandler: Handler = async ({ userId }) => {
+  await dbConnect();
   const user = await deleteUserById(userId);
 
   if (!user) {

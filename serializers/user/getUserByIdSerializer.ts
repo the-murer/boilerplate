@@ -10,7 +10,7 @@ type GetUserByIdInput = z.infer<typeof getUserByIdInput>;
 
 type GetUserByIdOutput = {
   success: boolean;
-  user: User;
+  user: Omit<User, "password">;
 };
 
 export const validateGetUserByIdInput = (data: any) => {

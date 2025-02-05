@@ -2,6 +2,7 @@ import {
     UpdateUserByIdHandler as Handler
 } from "@/serializers/user/updateUserByIdSerializer";
 import { User } from "@/types/userTypes";
+import dbConnect from "@/database/dbConnect";
 
 export const updateUserByIdHandler: Handler  = async ({
   userId,
@@ -10,7 +11,7 @@ export const updateUserByIdHandler: Handler  = async ({
   password,
 }) => {
   console.log("🚀 ~ >= ~ name, email, password => ", name, email, password);
-
+  await dbConnect();
   //   const user = await createUser(name, email, password);
 
   return { success: true, user: {} as User };

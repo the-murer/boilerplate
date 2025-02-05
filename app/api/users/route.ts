@@ -10,7 +10,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const inputData = validateCreateUserInput(req.body);
+  const body = await req.json();
+
+  const inputData = validateCreateUserInput(body);
   const data = await createUserHandler(inputData);
 
   return NextResponse.json(data);

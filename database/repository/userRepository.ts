@@ -6,7 +6,7 @@ export async function findUserByEmail(email: string): Promise<UserType | null> {
 }
 
 export async function findUsers(): Promise<UserType[]> {
-  return (await User.find().lean()) as unknown as UserType[];
+  return (await User.find()) as unknown as UserType[];
 }
 
 export async function createUser(
