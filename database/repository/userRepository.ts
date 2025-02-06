@@ -1,3 +1,5 @@
+import { PaginatedResult, PaginationType } from "@/utils/pagination";
+
 import User from "@/database/models/User";
 import { User as UserType } from "@/types/userTypes";
 
@@ -5,8 +7,27 @@ export async function findUserByEmail(email: string): Promise<UserType | null> {
   return (await User.findOne({ email }).lean()) as UserType | null;
 }
 
-export async function findUsers(): Promise<UserType[]> {
-  return (await User.find()) as unknown as UserType[];
+export async function findUsersWithPagination({ 
+  page, 
+  limit 
+}: PaginationType): Promise<PaginatedResult> {
+  const totalEntries = await User.countDocuments();
+  const totalPages = Math.ceil(totalEntries / limit);
+  
+  const users = await User.find()
+    .skip(page * limit)
+    .limit(limit) as UserType[];
+
+  return {
+    users,
+    metadata: {
+      hasNextPage: page < totalPages - 1,
+      hasPreviousPage: page > 0,
+      totalPages,
+      currentPage: page,
+      totalEntries
+    }
+  };
 }
 
 export async function createUser(
