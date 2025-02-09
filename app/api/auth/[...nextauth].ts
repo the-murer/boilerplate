@@ -7,7 +7,7 @@ import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import dbConnect from "@/database/dbConnect";
 import { findUserByEmail } from "@/database/repository/userRepository";
-import { validateUserLogin } from "@/utils/authUtils";
+import { validateUserLogin } from "@/api/user/userUtils";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -30,7 +30,8 @@ export const authOptions: NextAuthOptions = {
           throw new NotFoundException("No user found with this email");
         }
 
-        validateUserLogin(user, credentials.password);
+        await validateUserLogin(user, credentials.password);
+
 
         return {
           id: user.id.toString(),

@@ -1,4 +1,4 @@
-import { DeleteUserByIdHandler as Handler } from "@/serializers/user/deleteUserByIdSerializer";
+import { DeleteUserByIdHandler as Handler } from "@/api/user/serializers/deleteUserByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
 import { deleteUserById } from "@/database/repository/userRepository";

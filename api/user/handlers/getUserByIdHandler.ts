@@ -1,4 +1,4 @@
-import { GetUserByIdHandler as Handler } from "@/serializers/user/getUserByIdSerializer";
+import { GetUserByIdHandler as Handler } from "@/api/user/serializers/getUserByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
 import { findUserById } from "@/database/repository/userRepository";

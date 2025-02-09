@@ -1,4 +1,4 @@
-import { NotFoundException, RequestError } from "./errorUtils";
+import { NotFoundException, RequestError } from "@/utils/errorUtils";
 
 import { User } from "@/types/userTypes";
 import bcrypt from "bcrypt";

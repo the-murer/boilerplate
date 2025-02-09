@@ -1,14 +1,17 @@
 "use client";
 
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import React, { useEffect, useState } from "react";
 
-import LoadingTable from "@/components/default/loadingTable";
-import PageHeader from "@/components/default/pageHeader";
-import Pagination from "@/components/default/pagination";
-import Table from "@/components/default/table";
-import TableAction from "@/components/default/tableAction";
+import CreateUserModal from "@/modules/users/components/createUserModal";
+import LoadingTable from "@/modules/default/loadingTable";
+import PageHeader from "@/modules/default/pageHeader";
+import Pagination from "@/modules/default/pagination";
+import Table from "@/modules/default/table";
+import TableAction from "@/modules/default/tableAction";
 import { User } from "@/types/userTypes";
+import { useCreateUser } from "@/modules/users/hooks/useCreateUser";
 import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
 
 const columnHelper = createColumnHelper<User>();
@@ -51,6 +54,8 @@ const ListUsers = () => {
     limit,
   });
 
+  const showCreateUserModal = () => NiceModal.show(CreateUserModal);
+
   if (isLoading) return <LoadingTable />;
 
   return (
@@ -58,7 +63,7 @@ const ListUsers = () => {
       <PageHeader
         title="Listagem de Usuários"
         subtitle="Veja todos os usuários cadastrados no sistema"
-        createFunction={() => {}}
+        openCreateModal={showCreateUserModal}
       />
       <Table columns={columns} data={data.users} />
       <Pagination metadata={data.metadata} onPageChange={setPage} />

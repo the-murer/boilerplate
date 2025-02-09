@@ -1,4 +1,4 @@
-import { GetUsersHandler as Handler } from "@/serializers/user/getUsersSerializer";
+import { GetUsersHandler as Handler } from "@/api/user/serializers/getUsersSerializer";
 import { PaginationType } from "@/utils/pagination";
 import dbConnect from "@/database/dbConnect";
 import { findUsersWithPagination } from "@/database/repository/userRepository";

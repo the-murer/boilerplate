@@ -1,4 +1,4 @@
-import { CreateUserHandler as Handler } from "@/serializers/user/createUserSerializer";
+import { CreateUserHandler as Handler } from "@/api/user/serializers/createUserSerializer";
 import { User } from "@/types/userTypes";
 import dbConnect from "@/database/dbConnect";
 

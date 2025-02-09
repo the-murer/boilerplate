@@ -5,10 +5,10 @@ import React from "react";
 type PageHeaderProps = {
   title: string;
   subtitle: string;
-  createFunction: () => void;
+  openCreateModal: () => void;
 };
 
-const PageHeader = ({ title, subtitle, createFunction }: PageHeaderProps) => {
+const PageHeader = ({ title, subtitle, openCreateModal }: PageHeaderProps) => {
   return (
     <div className="flex items-start py-10">
       <div className="flex flex-col gap-2">
@@ -16,7 +16,13 @@ const PageHeader = ({ title, subtitle, createFunction }: PageHeaderProps) => {
         <p className="text-lg">{subtitle}</p>
       </div>
       <div className="flex items-center justify-center mt-2 ml-5">
-        <Button onPress={createFunction} isIconOnly variant="ghost" color="primary" size="lg">
+        <Button
+          onPress={openCreateModal}
+          isIconOnly
+          variant="ghost"
+          color="primary"
+          size="lg"
+        >
           <PlusIcon className="w-5 h-5" />
         </Button>
       </div>

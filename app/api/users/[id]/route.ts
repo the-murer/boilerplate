@@ -1,31 +1,29 @@
-import { NextResponse } from "next/server";
 import { RequestHeaders } from "@/types/commandHandler";
-import { deleteUserByIdHandler } from "@/handlers/user/deleteUserByHandler";
-import { getUserByIdHandler } from "@/handlers/user/getUserByIdHandler";
-import { updateUserByIdHandler } from "@/handlers/user/updateUserByIdHandler";
-import { validateDeleteUserByIdInput } from "@/serializers/user/deleteUserByIdSerializer";
-import { validateGetUserByIdInput } from "@/serializers/user/getUserByIdSerializer";
-import { validateUpdateUserByIdInput } from "@/serializers/user/updateUserByIdSerializer";
+import { apiHandler } from "@/utils/apiUtils";
+import { deleteUserByIdHandler } from "@/api/user/handlers/deleteUserByHandler";
+import { getUserByIdHandler } from "@/api/user/handlers/getUserByIdHandler";
+import { updateUserByIdHandler } from "@/api/user/handlers/updateUserByIdHandler";
+import { validateDeleteUserByIdInput } from "@/api/user/serializers/deleteUserByIdSerializer";
+import { validateGetUserByIdInput } from "@/api/user/serializers/getUserByIdSerializer";
+import { validateUpdateUserByIdInput } from "@/api/user/serializers/updateUserByIdSerializer";
 
-export async function GET(_: any, { params }: RequestHeaders) {
-  const inputData = validateGetUserByIdInput({ userId: params.id });
-  const data = await getUserByIdHandler(inputData);
+export const GET = async (_: Request, { params }: RequestHeaders) =>
+  apiHandler(
+    { userId: params.id },
+    validateGetUserByIdInput,
+    getUserByIdHandler
+  );
 
-  return NextResponse.json(data);
-}
+export const PATCH = async (req: Request, { params }: RequestHeaders) =>
+  apiHandler(
+    { ...(await req.json()), userId: params.id },
+    validateUpdateUserByIdInput,
+    updateUserByIdHandler
+  );
 
-export async function PATCH(req: Request, { params }: RequestHeaders) {
-  const body = await req.json();
-
-  const inputData = validateUpdateUserByIdInput({ ...body, userId: params.id });
-  const data = await updateUserByIdHandler(inputData);
-
-  return NextResponse.json(data);
-}
-
-export async function DELETE(_: Request, { params }: RequestHeaders) {
-  const inputData = validateDeleteUserByIdInput({ userId: params.id });
-  const data = await deleteUserByIdHandler(inputData);
-
-  return NextResponse.json(data);
-}
+export const DELETE = async (_: Request, { params }: RequestHeaders) =>
+  apiHandler(
+    { userId: params.id },
+    validateDeleteUserByIdInput,
+    deleteUserByIdHandler
+  );

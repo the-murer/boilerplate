@@ -1,6 +1,6 @@
 import {
     UpdateUserByIdHandler as Handler
-} from "@/serializers/user/updateUserByIdSerializer";
+} from "@/api/user/serializers/updateUserByIdSerializer";
 import { User } from "@/types/userTypes";
 import dbConnect from "@/database/dbConnect";
 
