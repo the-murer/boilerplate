@@ -1,8 +1,8 @@
 "use client";
 
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import NiceModal, { useModal } from "@ebay/nice-modal-react";
-import React, { useEffect, useState } from "react";
+import { ColumnDef } from "@tanstack/react-table";
+import NiceModal from "@ebay/nice-modal-react";
+import React, { useState } from "react";
 
 import CreateUserModal from "@/modules/users/components/createUserModal";
 import LoadingTable from "@/modules/default/loadingTable";
@@ -13,8 +13,7 @@ import TableAction from "@/modules/default/tableAction";
 import { User } from "@/types/userTypes";
 import { useCreateUser } from "@/modules/users/hooks/useCreateUser";
 import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
-
-const columnHelper = createColumnHelper<User>();
+import ErrorTable from "@/modules/default/errorTable";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -49,7 +48,7 @@ const ListUsers = () => {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  const { data, isLoading } = useGetUsers({
+  const { data, isLoading, error } = useGetUsers({
     page,
     limit,
   });
@@ -57,6 +56,9 @@ const ListUsers = () => {
   const showCreateUserModal = () => NiceModal.show(CreateUserModal);
 
   if (isLoading) return <LoadingTable />;
+  console.log("🚀 ~ ListUsers ~ error => ", error);
+
+  if (error) return <ErrorTable />;
 
   return (
     <>
@@ -65,8 +67,8 @@ const ListUsers = () => {
         subtitle="Veja todos os usuários cadastrados no sistema"
         openCreateModal={showCreateUserModal}
       />
-      <Table columns={columns} data={data.users} />
-      <Pagination metadata={data.metadata} onPageChange={setPage} />
+      <Table columns={columns} data={data?.users || []} />
+      <Pagination metadata={data?.metadata} onPageChange={setPage} />
     </>
   );
 };

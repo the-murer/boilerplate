@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { ZodSchema } from "zod";
 
 type PageFetcherProps = {
-  data: any;
+  data?: any;
   endPoint: string;
   method: string;
 };
@@ -26,7 +26,7 @@ export const apiHandler = async (
   handlerFunction: CommandHandler<any, any>
 ) => {
   const { errors, success } = validationFunction(data);
-  if (!success) {
+  if (success === false) {
     return NextResponse.json(
       {
         success,
@@ -49,7 +49,7 @@ export const pageFetcher = async ({
 }: PageFetcherProps) => {
   const response = await fetch(endPoint, {
     method,
-    body: JSON.stringify(data),
+    ...(data && { body: JSON.stringify(data) }),
   });
   const parsedResponse = await response.json();
 

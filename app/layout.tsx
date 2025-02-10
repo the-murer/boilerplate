@@ -29,19 +29,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <QueryProvider>
-          <ModalProvider>
-            <NextThemesProvider attribute="class" defaultTheme="light">
+          <NextThemesProvider attribute="class" defaultTheme="light">
+            <ModalProvider>
               <NavBar />
               <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl">
                 {children}
               </div>
-            </NextThemesProvider>
-          </ModalProvider>
+            </ModalProvider>
+          </NextThemesProvider>
         </QueryProvider>
       </body>
     </html>

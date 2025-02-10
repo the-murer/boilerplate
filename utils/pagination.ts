@@ -3,6 +3,8 @@ import { User } from "@/types/userTypes";
 export type PaginationType = {
   page: number;
   limit: number;
+  search?: string;
+  sort?: string;
 };
 
 export type PaginatedResult = {

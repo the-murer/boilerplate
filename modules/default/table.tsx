@@ -22,6 +22,8 @@ const Table = <T,>({ columns, data }: TableProps<T>) => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  if (!data || data.length === 0) return <div>Nenhum usuário encontrado</div>;
+
   return (
     <div className="rounded-lg overflow-hidden">
       <table className="w-full border-collapse">
