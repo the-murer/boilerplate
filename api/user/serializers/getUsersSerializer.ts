@@ -2,11 +2,15 @@ import { CommandHandler, DefaultResponse } from "@/types/commandHandler";
 
 import { User } from "@/types/userTypes";
 import { parseZodError } from "@/utils/apiUtils";
+import { SortEnum } from "@/utils/pagination";
 import { z } from "zod";
 
 const getUsersInput = z.object({
   page: z.number(),
   limit: z.number(),
+  sortField: z.string().nullable(),
+  sortOrder: z.nativeEnum(SortEnum).nullable(),
+  search: z.string().optional(),
 });
 
 // === API HANDLERS ===

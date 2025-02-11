@@ -7,26 +7,30 @@ export async function findUserByEmail(email: string): Promise<UserType | null> {
   return (await User.findOne({ email }).lean()) as UserType | null;
 }
 
-export async function findUsersWithPagination({ 
-  page, 
-  limit 
+export async function findUsersWithPagination({
+  page,
+  limit,
+  sortField,
+  sortOrder,
+  search,
 }: PaginationType): Promise<PaginatedResult> {
   const totalEntries = await User.countDocuments();
   const totalPages = Math.ceil(totalEntries / limit);
-  
-  const users = await User.find()
-    .skip(page * limit)
-    .limit(limit) as UserType[];
+
+  const users = (await User.find()
+    .skip((page - 1) * limit)
+    .sort({ [sortField]: sortOrder })
+    .limit(limit)) as UserType[];
 
   return {
     users,
     metadata: {
-      hasNextPage: page < totalPages - 1,
-      hasPreviousPage: page > 0,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
       totalPages,
       currentPage: page,
-      totalEntries
-    }
+      totalEntries,
+    },
   };
 }
 

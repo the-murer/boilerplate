@@ -2,6 +2,7 @@ import { CommandHandler, ValidationFunction } from "@/types/commandHandler";
 
 import { NextResponse } from "next/server";
 import { ZodSchema } from "zod";
+import { PaginationType } from "./pagination";
 
 type PageFetcherProps = {
   data?: any;
@@ -57,4 +58,11 @@ export const pageFetcher = async ({
     throw new Error(parsedResponse.errors.join("\n"));
   }
   return parsedResponse;
+};
+
+export const getQueryString = (params: PaginationType) => {
+  return Object.entries(params)
+    .filter(([_, value]) => value !== undefined)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
 };

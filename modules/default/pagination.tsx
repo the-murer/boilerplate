@@ -8,7 +8,6 @@ type PaginationProps = {
 };
 
 const Pagination = ({ metadata, onPageChange }: PaginationProps) => {
-  
   if (!metadata) return null;
   return (
     <div className="flex items-end justify-end mt-5">
@@ -16,11 +15,11 @@ const Pagination = ({ metadata, onPageChange }: PaginationProps) => {
         showShadow
         showControls
         total={metadata.totalPages}
-        page={metadata.currentPage + 1}
+        page={metadata.currentPage}
         onChange={(page) => onPageChange(page)}
       />
     </div>
   );
-}
+};
 
-export default Pagination
+export default Pagination;
