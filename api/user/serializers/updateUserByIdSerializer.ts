@@ -4,7 +4,7 @@ import { User } from "@/types/userTypes";
 import { parseZodError } from "@/utils/apiUtils";
 import { z } from "zod";
 
-const updateUserByIdInput = z.object({
+export const updateUserByIdResolver = z.object({
   userId: z.string({ required_error: "Id do usuário é obrigatório" }),
   name: z.string({ required_error: "Nome é obrigatório" }),
   email: z
@@ -19,7 +19,7 @@ const updateUserByIdInput = z.object({
 // === API HANDLERS ===
 
 export const validateUpdateUserByIdInput = (data: UpdateUserByIdInput) =>
-  parseZodError<UpdateUserByIdInput>(updateUserByIdInput, data);
+  parseZodError<UpdateUserByIdInput>(updateUserByIdResolver, data);
 
 export type UpdateUserByIdHandler = CommandHandler<
   UpdateUserByIdInput,
@@ -28,7 +28,7 @@ export type UpdateUserByIdHandler = CommandHandler<
 
 // === EXPLICIT TYPES ===
 
-export type UpdateUserByIdInput = z.infer<typeof updateUserByIdInput>;
+export type UpdateUserByIdInput = z.infer<typeof updateUserByIdResolver>;
 
 interface UpdateUserByIdOutput extends DefaultResponse {
   user: User;
