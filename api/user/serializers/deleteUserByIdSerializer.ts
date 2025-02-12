@@ -20,7 +20,7 @@ export type DeleteUserByIdHandler = CommandHandler<
 
 // === EXPLICIT TYPES ===
 
-type DeleteUserByIdInput = z.infer<typeof deleteUserByIdInput>;
+export type DeleteUserByIdInput = z.infer<typeof deleteUserByIdInput>;
 
 interface DeleteUserByIdOutput extends DefaultResponse {
   user: User;

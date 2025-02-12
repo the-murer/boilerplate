@@ -1,4 +1,5 @@
 import {
+  Button,
   Modal,
   ModalBody,
   ModalContent,
@@ -17,33 +18,17 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useUpdateUser } from "../hooks/useUpdateUser";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDeleteUser } from "../hooks/useDeletUsers";
 
-type UpdateUserModalProps = {
+type DeleteUserModalProps = {
   id: string;
   name: string;
-  email: string;
-  password: string;
 };
 
-const UpdateUserModal = NiceModal.create(
-  ({ id, name, email, password }: UpdateUserModalProps) => {
-    const form = useForm<UpdateUserByIdInput>({
-      defaultValues: {
-        userId: id,
-        name,
-        email,
-        password,
-      },
-      resolver: zodResolver(updateUserByIdResolver),
-      mode: "onBlur",
-    });
-
-    const { mutate, isPending, error, isSuccess } = useUpdateUser();
+const DeleteUserModal = NiceModal.create(
+  ({ id: userId, name }: DeleteUserModalProps) => {
+    const { mutate, error, isSuccess } = useDeleteUser();
     const modal = useModal();
-
-    useEffect(() => {
-      form.reset();
-    }, [modal.visible]);
 
     useEffect(() => {
       if (isSuccess) {
@@ -51,21 +36,23 @@ const UpdateUserModal = NiceModal.create(
       }
     }, [isSuccess]);
 
-    const handleFormSubmit = form.handleSubmit((data: any) => mutate(data));
-
     return (
       <Modal isOpen={modal.visible} onClose={() => modal.hide()}>
         <ModalContent>
           <ModalHeader>Atualizar Usuário</ModalHeader>
           <ModalBody>
             {error && <h3 className="text-danger-500">{error.message}</h3>}
-            <UserForm form={form} />
+            <p>Tem certeza que deseja deletar o usuário {name}?</p>
           </ModalBody>
           <ModalFooter>
-            <SubmitButton
-              isPending={isPending}
-              handleFormSubmit={handleFormSubmit}
-            />
+            <Button color="danger" onPress={() => modal.hide()}>
+              {" "}
+              Cancelar
+            </Button>
+            <Button color="primary" onPress={() => mutate({ userId })}>
+              {" "}
+              Deletar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -73,4 +60,4 @@ const UpdateUserModal = NiceModal.create(
   }
 );
 
-export default UpdateUserModal;
+export default DeleteUserModal;

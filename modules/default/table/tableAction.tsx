@@ -12,9 +12,9 @@ import React from "react";
 type TableActionProps = {
   row: any;
   actionsFunctions: {
-    view: () => void;
-    edit: () => void;
-    delete: () => void;
+    view?: Function;
+    edit?: Function;
+    delete?: Function;
   };
 };
 
@@ -27,27 +27,33 @@ const TableAction = ({ row, actionsFunctions }: TableActionProps) => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem
-          key="view"
-          startContent={<EyeIcon className="w-5 h-5" />}
-          onPress={actionsFunctions.view}
-        >
-          <p>Visualizar</p>
-        </DropdownItem>
-        <DropdownItem
-          key="edit"
-          startContent={<PencilIcon className="w-5 h-5" />}
-          onPress={actionsFunctions.edit}
-        >
-          <p>Editar</p>
-        </DropdownItem>
-        <DropdownItem
-          key="delete"
-          startContent={<TrashIcon className="w-5 h-5" />}
-          onPress={actionsFunctions.delete}
-        >
-          <p>Excluir</p>
-        </DropdownItem>
+        {actionsFunctions.view !== undefined ? (
+          <DropdownItem
+            key="view"
+            startContent={<EyeIcon className="w-5 h-5" />}
+            onPress={() => actionsFunctions.view?.(row)}
+          >
+            <p>Visualizar</p>
+          </DropdownItem>
+        ) : null}
+        {actionsFunctions.edit !== undefined ? (
+          <DropdownItem
+            key="edit"
+            startContent={<PencilIcon className="w-5 h-5" />}
+            onPress={() => actionsFunctions.edit?.(row)}
+          >
+            <p>Editar</p>
+          </DropdownItem>
+        ) : null}
+        {actionsFunctions.delete !== undefined ? (
+          <DropdownItem
+            key="delete"
+            startContent={<TrashIcon className="w-5 h-5" />}
+            onPress={() => actionsFunctions.delete?.(row)}
+          >
+            <p>Excluir</p>
+          </DropdownItem>
+        ) : null}
       </DropdownMenu>
     </Dropdown>
   );

@@ -13,6 +13,8 @@ import { User } from "@/types/userTypes";
 import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
 import useUrlParams from "@/modules/default/hooks/useUrlParams";
 import UserFilters from "@/modules/users/components/userFilters";
+import UpdateUserModal from "@/modules/users/components/updateUserModal";
+import DeleteUserModal from "@/modules/users/components/deleteUserModal";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -28,16 +30,21 @@ const columns: ColumnDef<User>[] = [
     header: "Ações",
     cell: ({ row }) => (
       <TableAction
-        row={row}
+        row={row.original}
         actionsFunctions={{
-          view: () => {},
-          edit: () => {},
-          delete: () => {},
+          edit: showUpdateUserModal,
+          delete: showDeleteUserModal,
         }}
       />
     ),
   },
 ];
+const showCreateUserModal = () => NiceModal.show(CreateUserModal);
+const showUpdateUserModal = (user: User) =>
+  NiceModal.show(UpdateUserModal, user);
+const showDeleteUserModal = (user: User) =>
+  NiceModal.show(DeleteUserModal, user);
+// const showViewUserModal = () => NiceModal.show(ViewUserModal);
 
 const ListUsers = () => {
   const {
@@ -58,8 +65,6 @@ const ListUsers = () => {
     sortOrder,
     ...aditionalParams,
   });
-
-  const showCreateUserModal = () => NiceModal.show(CreateUserModal);
 
   return (
     <>
