@@ -25,7 +25,6 @@ const useUrlParams = () => {
         return acc;
       }, {} as Record<string, string>);
 
-
     if (pageParam) setPage(Number(pageParam));
     if (sortFieldParam) setSortField(sortFieldParam);
     if (sortOrderParam) setSortOrder(sortOrderParam);
@@ -58,6 +57,14 @@ const useUrlParams = () => {
     setSortOrder(sortOrder === SortEnum.ASC ? SortEnum.DESC : SortEnum.ASC);
   };
 
+  const clearFilters = () => {
+    setPage(1);
+    setSortField("createdAt");
+    setSortOrder(SortEnum.DESC);
+    setLimit(10);
+    setAditionalParams({});
+  };
+
   return {
     page,
     setPage,
@@ -70,6 +77,7 @@ const useUrlParams = () => {
     handleSortChange,
     aditionalParams,
     setAditionalParams,
+    clearFilters,
   };
 };
 

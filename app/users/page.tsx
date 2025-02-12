@@ -2,19 +2,15 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import NiceModal from "@ebay/nice-modal-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import CreateUserModal from "@/modules/users/components/createUserModal";
-import LoadingTable from "@/modules/default/table/loadingTable";
 import PageHeader from "@/modules/default/pageHeader";
 import Pagination from "@/modules/default/pagination";
 import Table from "@/modules/default/table/table";
 import TableAction from "@/modules/default/table/tableAction";
 import { User } from "@/types/userTypes";
-import { useCreateUser } from "@/modules/users/hooks/useCreateUser";
 import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
-import ErrorTable from "@/modules/default/table/errorTable";
-import { SortEnum } from "@/utils/pagination";
 import useUrlParams from "@/modules/default/hooks/useUrlParams";
 import UserFilters from "@/modules/users/components/userFilters";
 
@@ -26,10 +22,6 @@ const columns: ColumnDef<User>[] = [
   {
     accessorKey: "email",
     header: "Email",
-  },
-  {
-    accessorKey: "role",
-    header: "Função",
   },
   {
     accessorKey: "actions",
