@@ -11,7 +11,8 @@ export const getUsersHandler: Handler = async ({
   limit,
   sortField,
   sortOrder,
-  search,
+  name,
+  email,
 }) => {
   await dbConnect();
 
@@ -20,7 +21,8 @@ export const getUsersHandler: Handler = async ({
     limit,
     sortField: sortField || "createdAt",
     sortOrder: sortOrder || SortEnum.DESC,
-    search,
+    name,
+    email,
   });
 
   const data = users.map((user) => sanitizedUserSchema.parse(user));

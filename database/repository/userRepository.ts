@@ -3,6 +3,11 @@ import { PaginatedResult, PaginationType } from "@/utils/pagination";
 import User from "@/database/models/User";
 import { User as UserType } from "@/types/userTypes";
 
+export type UserFilters = {
+  name?: string;
+  email?: string;
+};
+
 export async function findUserByEmail(email: string): Promise<UserType | null> {
   return (await User.findOne({ email }).lean()) as UserType | null;
 }
@@ -12,12 +17,18 @@ export async function findUsersWithPagination({
   limit,
   sortField,
   sortOrder,
-  search,
-}: PaginationType): Promise<PaginatedResult> {
+  name,
+  email,
+}: PaginationType & UserFilters): Promise<PaginatedResult> {
   const totalEntries = await User.countDocuments();
   const totalPages = Math.ceil(totalEntries / limit);
 
-  const users = (await User.find()
+  const query: any = {};
+
+  if (name) query.name = { $regex: name, $options: "i" };
+  if (email) query.email = { $regex: email, $options: "i" };
+
+  const users = (await User.find(query)
     .skip((page - 1) * limit)
     .sort({ [sortField]: sortOrder })
     .limit(limit)) as UserType[];

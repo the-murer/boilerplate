@@ -16,6 +16,7 @@ import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
 import ErrorTable from "@/modules/default/table/errorTable";
 import { SortEnum } from "@/utils/pagination";
 import useUrlParams from "@/modules/default/hooks/useUrlParams";
+import UserFilters from "@/modules/users/components/userFilters";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -46,26 +47,24 @@ const columns: ColumnDef<User>[] = [
   },
 ];
 
-
-const LoadingGradient = () => {
-  console.log("LoadingGradient");
-  return (
-    <div
-      className={`animate-pulse w-full h-4 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded`}
-    />
-  );
-};
-
-
 const ListUsers = () => {
-  const { page, setPage, limit, sortField, sortOrder, handleSortChange } =
-    useUrlParams();
+  const {
+    page,
+    setPage,
+    limit,
+    sortField,
+    sortOrder,
+    handleSortChange,
+    aditionalParams,
+    setAditionalParams,
+  } = useUrlParams();
 
   const { data, isLoading, error } = useGetUsers({
     page,
     limit,
     sortField,
     sortOrder,
+    ...aditionalParams,
   });
 
   const showCreateUserModal = () => NiceModal.show(CreateUserModal);
@@ -76,7 +75,12 @@ const ListUsers = () => {
         title="Listagem de Usuários"
         subtitle="Veja todos os usuários cadastrados no sistema"
         openCreateModal={showCreateUserModal}
-      />
+      >
+        <UserFilters
+          aditionalParams={aditionalParams}
+          setAditionalParams={setAditionalParams}
+        />
+      </PageHeader>
       <Table
         columns={columns}
         data={data?.users || []}

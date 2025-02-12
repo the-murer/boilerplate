@@ -43,7 +43,6 @@ const UpdateUserModal = NiceModal.create(
 
     useEffect(() => {
       form.reset();
-      console.log(form.formState.errors);
     }, [modal.visible]);
 
     useEffect(() => {

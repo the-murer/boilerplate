@@ -2,13 +2,12 @@ import { Button } from "@nextui-org/react";
 import React from "react";
 import { Spinner } from "@nextui-org/react";
 
-const SubmitButton = ({
-  isPending,
-  handleFormSubmit,
-}: {
+type SubmitButtonProps = {
   isPending: boolean;
   handleFormSubmit: () => void;
-}) => {
+};
+
+const SubmitButton = ({ isPending, handleFormSubmit }: SubmitButtonProps) => {
   return (
     <Button
       color="primary"

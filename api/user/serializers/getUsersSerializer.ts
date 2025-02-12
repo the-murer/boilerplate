@@ -2,15 +2,12 @@ import { CommandHandler, DefaultResponse } from "@/types/commandHandler";
 
 import { User } from "@/types/userTypes";
 import { parseZodError } from "@/utils/apiUtils";
-import { SortEnum } from "@/utils/pagination";
+import { SortEnum, basePaginationResolver } from "@/utils/pagination";
 import { z } from "zod";
 
-const getUsersInput = z.object({
-  page: z.number(),
-  limit: z.number(),
-  sortField: z.string().nullable(),
-  sortOrder: z.nativeEnum(SortEnum).nullable(),
-  search: z.string().optional(),
+const getUsersInput = basePaginationResolver.extend({
+  name: z.string().optional(),
+  email: z.string().optional(),
 });
 
 // === API HANDLERS ===
@@ -23,10 +20,9 @@ export type GetUsersHandler = CommandHandler<
   Promise<GetUsersOutput>
 >;
 
-
 // === EXPLICIT TYPES ===
 
-type GetUsersInput = z.infer<typeof getUsersInput>;
+export type GetUsersInput = z.infer<typeof getUsersInput>;
 
 interface GetUsersOutput extends DefaultResponse {
   users: Omit<User, "password">[];
