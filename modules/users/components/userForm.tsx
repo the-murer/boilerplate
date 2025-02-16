@@ -2,7 +2,7 @@ import { Button, Form } from "@nextui-org/react";
 import { FieldValues, UseFormReturn, useForm } from "react-hook-form";
 
 import { CreateUserInputType } from "../hooks/useCreateUser";
-import Input from "@/modules/default/input";
+import Input from "@/modules/ui/input";
 import React from "react";
 
 type UserFormProps = {

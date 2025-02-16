@@ -12,7 +12,7 @@ import {
   updateUserByIdResolver,
 } from "@/api/user/serializers/updateUserByIdSerializer";
 
-import SubmitButton from "@/modules/default/submitButton";
+import SubmitButton from "@/modules/default/components/submitButton";
 import UserForm from "./userForm";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";

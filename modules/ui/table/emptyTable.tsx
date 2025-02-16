@@ -1,9 +1,9 @@
 import { Button } from "@nextui-org/react";
 import React from "react";
-import useUrlParams from "../hooks/useUrlParams";
+import usePaginationParams from "../../default/hooks/usePaginationParams";
 
 const EmptyTable = () => {
-  const { clearFilters } = useUrlParams();
+  const { clearFilters } = usePaginationParams();
   return (
     <div className="rounded-lg overflow-hidden">
       <div className="w-full bg-gray-200 dark:bg-gray-900 p-8">

@@ -5,13 +5,13 @@ import NiceModal from "@ebay/nice-modal-react";
 import React from "react";
 
 import CreateUserModal from "@/modules/users/components/createUserModal";
-import PageHeader from "@/modules/default/pageHeader";
-import Pagination from "@/modules/default/pagination";
-import Table from "@/modules/default/table/table";
-import TableAction from "@/modules/default/table/tableAction";
+import PageHeader from "@/modules/default/components/pageHeader";
+import Pagination from "@/modules/default/components/pagination";
+import Table from "@/modules/ui/table/table";
+import TableAction from "@/modules/ui/table/tableAction";
 import { User } from "@/types/userTypes";
 import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
-import useUrlParams from "@/modules/default/hooks/useUrlParams";
+import useUrlParams from "@/modules/default/hooks/usePaginationParams";
 import UserFilters from "@/modules/users/components/userFilters";
 import UpdateUserModal from "@/modules/users/components/updateUserModal";
 import DeleteUserModal from "@/modules/users/components/deleteUserModal";
@@ -44,7 +44,6 @@ const showUpdateUserModal = (user: User) =>
   NiceModal.show(UpdateUserModal, user);
 const showDeleteUserModal = (user: User) =>
   NiceModal.show(DeleteUserModal, user);
-// const showViewUserModal = () => NiceModal.show(ViewUserModal);
 
 const ListUsers = () => {
   const {
@@ -78,6 +77,7 @@ const ListUsers = () => {
           setAditionalParams={setAditionalParams}
         />
       </PageHeader>
+
       <Table
         columns={columns}
         data={data?.users || []}

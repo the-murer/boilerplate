@@ -1,4 +1,4 @@
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 
 import { Input as NextInput } from "@nextui-org/react";
 
@@ -8,9 +8,17 @@ type InputProps = {
   placeholder: string;
   name: string;
   type?: string;
+  disabled?: boolean;
 };
 
-const Input = ({ form, label, placeholder, name, type = "text" }: InputProps) => {
+const Input = ({
+  form,
+  label,
+  placeholder,
+  name,
+  type = "text",
+  disabled = false,
+}: InputProps) => {
   const error = form.formState.errors[name];
 
   return (
@@ -19,10 +27,12 @@ const Input = ({ form, label, placeholder, name, type = "text" }: InputProps) =>
         label={label}
         placeholder={placeholder}
         type={type}
+        disabled={disabled}
         {...form.register(name)}
         isInvalid={!!error}
         style={{
           fontSize: "18px",
+          color: disabled ? "gray" : "white",
         }}
         description={error?.message as string}
       />
@@ -30,4 +40,4 @@ const Input = ({ form, label, placeholder, name, type = "text" }: InputProps) =>
   );
 };
 
-export default Input
+export default Input;

@@ -32,11 +32,11 @@ export const authOptions: NextAuthOptions = {
 
         await validateUserLogin(user, credentials.password);
 
-
         return {
           id: user.id.toString(),
           email: user.email,
           name: user.name,
+          roles: (user as any).roles,
         };
       },
     }),
@@ -47,6 +47,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
+        token.roles = (user as any).roles;
       }
 
       return token;
@@ -58,7 +59,7 @@ export const authOptions: NextAuthOptions = {
           id: token.id,
           email: token.email,
           name: token.name,
-          companies: token.companies,
+          roles: token.roles,
         },
       };
     },

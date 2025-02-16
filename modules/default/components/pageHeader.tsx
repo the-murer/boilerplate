@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { FilterIcon, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
-import Collapse from "../ui/collapse";
+import Collapse from "../../ui/collapse";
 
 type PageHeaderProps = {
   title: string;
