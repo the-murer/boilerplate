@@ -1,6 +1,6 @@
 import { RequestHeaders } from "@/types/commandHandler";
 import { apiHandler } from "@/utils/apiUtils";
-import { deleteUserByIdHandler } from "@/api/user/handlers/deleteUserByHandler";
+import { deleteUserByIdHandler } from "@/api/user/handlers/deleteUserByIdHandler";
 import { getUserByIdHandler } from "@/api/user/handlers/getUserByIdHandler";
 import { updateUserByIdHandler } from "@/api/user/handlers/updateUserByIdHandler";
 import { validateDeleteUserByIdInput } from "@/api/user/serializers/deleteUserByIdSerializer";

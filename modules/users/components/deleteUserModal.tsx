@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useUpdateUser } from "../hooks/useUpdateUser";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useDeleteUser } from "../hooks/useDeletUsers";
+import { useDeleteUser } from "../hooks/useDeleteUsers";
 
 type DeleteUserModalProps = {
   id: string;

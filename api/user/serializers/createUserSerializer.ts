@@ -35,5 +35,5 @@ export type CreateUserHandler = CommandHandler<
 export type CreateUserInput = z.infer<typeof createUserResolver>;
 
 interface CreateUserOutput extends DefaultResponse {
-  user: User;
+  user: Omit<User, "password">;
 }
