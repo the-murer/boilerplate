@@ -7,6 +7,8 @@ import ModalProvider from "@/modules/layout/modalProvider";
 import NavBar from "@/modules/layout/navbar";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import QueryProvider from "@/modules/layout/queryProvider";
+import { AbilityProvider } from "@/auth/abilityContext";
+import SessionWrapper from "@/auth/sessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,16 +36,20 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <QueryProvider>
-          <NextThemesProvider attribute="class" defaultTheme="light">
-            <ModalProvider>
-              <NavBar />
-              <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl">
-                {children}
-              </div>
-            </ModalProvider>
-          </NextThemesProvider>
-        </QueryProvider>
+        <SessionWrapper>
+          <AbilityProvider>
+            <NextThemesProvider attribute="class" defaultTheme="light">
+              <ModalProvider>
+                <QueryProvider>
+                  <NavBar />
+                  <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl">
+                    {children}
+                  </div>
+                </QueryProvider>
+              </ModalProvider>
+            </NextThemesProvider>
+          </AbilityProvider>
+        </SessionWrapper>
       </body>
     </html>
   );

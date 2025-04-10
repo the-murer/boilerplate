@@ -1,12 +1,10 @@
 import {
   ColumnDef,
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useTheme } from "next-themes";
 import EmptyTable from "./emptyTable";
 import { SortEnum } from "@/utils/pagination";
 import { MoveDown, MoveUp } from "lucide-react";

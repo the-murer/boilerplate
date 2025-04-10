@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { FilterIcon, PlusIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Collapse from "../../ui/collapse";
 
 type PageHeaderProps = {
@@ -20,6 +20,14 @@ const PageHeader = ({
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
 
+  const filterComponent = React.Children.toArray(children).find(
+    (child) => React.isValidElement(child) && child.type === PageHeader.Filter
+  );
+
+  const actions = React.Children.toArray(children).filter(
+    (child) => React.isValidElement(child) && child.type === PageHeader.Action
+  );
+
   return (
     <>
       <div className="flex items-start pt-10">
@@ -28,6 +36,7 @@ const PageHeader = ({
           <p className="text-lg">{subtitle}</p>
         </div>
         <div className="flex items-center justify-center mt-2 ml-5 gap-5">
+          {actions}
           <Button
             onPress={openCreateModal}
             isIconOnly
@@ -49,10 +58,18 @@ const PageHeader = ({
         </div>
       </div>
       <div className="my-5">
-        <Collapse isOpen={isFilterOpen}>{children}</Collapse>
+        <Collapse isOpen={isFilterOpen}>{filterComponent}</Collapse>
       </div>
     </>
   );
+};
+
+PageHeader.Filter = function Filter({ children }: { children: ReactNode }) {
+  return <>{children}</>;
+};
+
+PageHeader.Action = function Action({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 };
 
 export default PageHeader;

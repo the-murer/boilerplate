@@ -52,7 +52,7 @@ export async function createUser(
 }
 
 export async function findUserById(id: string): Promise<UserType | null> {
-  return (await User.findById(id).lean()) as UserType | null;
+  return (await User.findById(id)) as UserType | null;
 }
 
 export async function deleteUserById(id: string): Promise<UserType | null> {

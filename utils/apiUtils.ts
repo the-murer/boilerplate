@@ -10,6 +10,8 @@ type PageFetcherProps = {
   method: string;
 };
 
+const BASE_API_PATH = "/api";
+
 export const parseZodError = <T>(schema: ZodSchema, data: T) => {
   const result = schema.safeParse(data);
   if (!result.success) {
@@ -48,7 +50,7 @@ export const pageFetcher = async ({
   endPoint,
   method,
 }: PageFetcherProps) => {
-  const response = await fetch(endPoint, {
+  const response = await fetch(`${BASE_API_PATH}/${endPoint}`, {
     method,
     ...(data && { body: JSON.stringify(data) }),
   });

@@ -1,7 +1,6 @@
 import { generateApi } from "./generateApi";
 import { plural } from "pluralize";
 
-const fs = require('fs');
 const readline = require('readline');
 
 interface ModelAttribute {

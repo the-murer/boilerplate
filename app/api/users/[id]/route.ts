@@ -7,12 +7,15 @@ import { validateDeleteUserByIdInput } from "@/api/user/serializers/deleteUserBy
 import { validateGetUserByIdInput } from "@/api/user/serializers/getUserByIdSerializer";
 import { validateUpdateUserByIdInput } from "@/api/user/serializers/updateUserByIdSerializer";
 
-export const GET = async (_: Request, { params }: RequestHeaders) =>
-  apiHandler(
-    { userId: params.id },
+export const GET = async (_: Request, { params }: RequestHeaders) =>{
+  const { id } = await params
+
+  return apiHandler(
+    { userId: id },
     validateGetUserByIdInput,
     getUserByIdHandler
   );
+}
 
 export const PATCH = async (req: Request, { params }: RequestHeaders) =>
   apiHandler(

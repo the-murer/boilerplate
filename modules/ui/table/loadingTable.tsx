@@ -1,16 +1,13 @@
 import {
   ColumnDef,
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useTheme } from "next-themes";
-import EmptyTable from "./emptyTable";
 import { SortEnum } from "@/utils/pagination";
 import { MoveDown, MoveUp } from "lucide-react";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 
 const SortIcon = ({ sortOrder }: { sortOrder: SortEnum }) => {
   return sortOrder === SortEnum.ASC ? (
@@ -20,7 +17,7 @@ const SortIcon = ({ sortOrder }: { sortOrder: SortEnum }) => {
   );
 };
 
-const LoadingGradient = memo(() => (
+export const LoadingGradient = memo(() => (
   <div className="animate-pulse w-full h-4 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded" />
 ));
 

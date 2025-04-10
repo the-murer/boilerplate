@@ -2,6 +2,7 @@ import { getQueryString, pageFetcher } from "@/utils/apiUtils";
 import { PaginationType } from "@/utils/pagination";
 import { useQuery } from "@tanstack/react-query";
 
+const getUsersKey = "users";
 
 const getUsers = async ({
   page,
@@ -11,7 +12,7 @@ const getUsers = async ({
   ...aditionalParams
 }: PaginationType) =>
   pageFetcher({
-    endPoint: `api/users?${getQueryString({
+    endPoint: `users?${getQueryString({
       page,
       limit,
       sortField,
@@ -29,7 +30,7 @@ export const useGetUsers = ({
   ...aditionalParams
 }: PaginationType) => {
   return useQuery({
-    queryKey: ["users", page, limit, sortField, sortOrder, aditionalParams],
+    queryKey: [getUsersKey, page, limit, sortField, sortOrder, aditionalParams],
     queryFn: () =>
       getUsers({ page, limit, sortField, sortOrder, ...aditionalParams }),
   });
