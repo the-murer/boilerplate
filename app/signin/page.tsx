@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Card, CardHeader } from "@nextui-org/react";
+import { Card, CardHeader } from "@heroui/react";
 import useUrlParams from "@/modules/default/hooks/useUrlParams";
 import { useGetInvite } from "@/modules/auth/hooks/useGetInvite";
 import SignInForm from "@/modules/auth/components/signinForm";

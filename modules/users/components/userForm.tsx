@@ -1,12 +1,11 @@
-import { Button, Form } from "@nextui-org/react";
-import { FieldValues, UseFormReturn, useForm } from "react-hook-form";
+import { Form } from "@heroui/react";
+import { UseFormReturn } from "react-hook-form";
 
-import { CreateUserInputType } from "../hooks/useCreateUser";
 import Input from "@/modules/ui/input";
 import React from "react";
 
 type UserFormProps = {
-  form: UseFormReturn<CreateUserInputType, any, undefined>;
+  form: UseFormReturn<any, any, undefined>;
 };
 
 const UserForm = ({ form }: UserFormProps) => {

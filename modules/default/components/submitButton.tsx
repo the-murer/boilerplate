@@ -1,6 +1,6 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import React from "react";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 
 type SubmitButtonProps = {
   isPending: boolean;

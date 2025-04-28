@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { SwitchProps, useSwitch } from "@nextui-org/react";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
+import { SwitchProps, useSwitch } from "@heroui/react";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "lucide-react";
@@ -44,9 +43,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         ),
       })}
     >
-      <VisuallyHidden>
+      {/* <VisuallyHidden>
         <input {...getInputProps()} />
-      </VisuallyHidden>
+      </VisuallyHidden> */}
       <div
         {...getWrapperProps()}
         className={slots.wrapper({

@@ -15,6 +15,7 @@ import useUrlParams from "@/modules/default/hooks/usePaginationParams";
 import UserFilters from "@/modules/users/components/userFilters";
 import UpdateUserModal from "@/modules/users/components/updateUserModal";
 import DeleteUserModal from "@/modules/users/components/deleteUserModal";
+import PageRouterAbilitiyCheck from "@/modules/auth/pageRouterAbilityCheck";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -66,7 +67,7 @@ const ListUsers = () => {
   });
 
   return (
-    <>
+    <PageRouterAbilitiyCheck role="User" action="read" >
       <PageHeader
         title="Listagem de Usuários"
         subtitle="Veja todos os usuários cadastrados no sistema"
@@ -89,7 +90,7 @@ const ListUsers = () => {
         limit={limit}
       />
       <Pagination metadata={data?.metadata} onPageChange={setPage} />
-    </>
+    </PageRouterAbilitiyCheck>
   );
 };
 

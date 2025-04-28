@@ -4,7 +4,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { EyeIcon, MoreVerticalIcon, PencilIcon, TrashIcon } from "lucide-react";
 
 import React from "react";

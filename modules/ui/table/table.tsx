@@ -20,7 +20,7 @@ type TableProps<T> = {
   isLoading: boolean;
   limit: number;
   error: any;
-  onRowClick: (row: T) => void;
+  onRowClick?: (row: T) => void;
 };
 
 const SortIcon = ({ sortOrder }: { sortOrder: SortEnum }) => {
@@ -95,7 +95,7 @@ const Table = <T,>({
           {table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              onClick={() => onRowClick(row.original)}
+              onClick={() => onRowClick?.(row.original)}
               className="border-t border-gray-300 dark:border-gray-700 hover:bg-gray-300 dark:hover:bg-gray-800 transition-colors duration-200"
             >
               {row.getVisibleCells().map((cell) => (

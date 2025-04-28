@@ -8,7 +8,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 
 import SubmitButton from "@/modules/default/components/submitButton";

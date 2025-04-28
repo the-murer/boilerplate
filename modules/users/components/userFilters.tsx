@@ -1,6 +1,5 @@
 import Input from "@/modules/ui/input";
-import SubmitButton from "@/modules/default/components/submitButton";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 

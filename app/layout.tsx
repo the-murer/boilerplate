@@ -3,12 +3,10 @@ import "@/utils/globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import type { Metadata } from "next";
-import ModalProvider from "@/modules/layout/modalProvider";
+import AppDefaultProviders from "@/modules/layout/appDefaultProviders";
 import NavBar from "@/modules/layout/navbar";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import QueryProvider from "@/modules/layout/queryProvider";
-import { AbilityProvider } from "@/auth/abilityContext";
-import SessionWrapper from "@/auth/sessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,20 +34,16 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <SessionWrapper>
-          <AbilityProvider>
-            <NextThemesProvider attribute="class" defaultTheme="light">
-              <ModalProvider>
-                <QueryProvider>
-                  <NavBar />
-                  <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl">
-                    {children}
-                  </div>
-                </QueryProvider>
-              </ModalProvider>
-            </NextThemesProvider>
-          </AbilityProvider>
-        </SessionWrapper>
+        <NextThemesProvider attribute="class" defaultTheme="light">
+          <AppDefaultProviders>
+            <QueryProvider>
+              <NavBar />
+              <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl">
+                {children}
+              </div>
+            </QueryProvider>
+          </AppDefaultProviders>
+        </NextThemesProvider>
       </body>
     </html>
   );

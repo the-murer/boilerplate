@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 
-import { Input as NextInput } from "@nextui-org/react";
+import { Input as NextInput } from "@heroui/react";
 
 type InputProps = {
   form: UseFormReturn<any, any, undefined>;

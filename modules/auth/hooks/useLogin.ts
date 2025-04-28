@@ -1,9 +1,11 @@
 import { signIn } from "next-auth/react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { z } from "zod";
 
 
 export const useLogin = () => {
+  // const router = useRouter();
+  
   const loginSchema = z.object({
     email: z.string({
       required_error: "Por favor, insira seu email",
@@ -20,14 +22,17 @@ export const useLogin = () => {
         redirect: false,
         email: data.email,
         password: data.password,
+        callbackUrl: "/",
       });
 
       if (res?.error) {
         throw new Error(res.error);
       }
-      // if (res?.ok) {
-      //   Router.push("/dash");
-      // }
+      
+      if (res?.ok) {
+        console.log('🚀 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        // router.push("/dashboard");
+      }
     } catch (error) {
       console.log("🚀 error => ", error);
     }

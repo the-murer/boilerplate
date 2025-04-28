@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Input from "@/modules/ui/input";
 
-import { Button, CardBody, CardFooter } from "@nextui-org/react";
+import { Button, CardBody, CardFooter } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { useSignin } from "../hooks/useSignin";
 import { Invite } from "@/types/inviteTypes";

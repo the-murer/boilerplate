@@ -1,4 +1,4 @@
-import { Pagination as NextPagination } from "@nextui-org/react";
+import { Pagination as NextPagination } from "@heroui/react";
 import { PaginatedResult } from "@/utils/pagination";
 import React from "react";
 

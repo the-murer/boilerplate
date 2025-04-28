@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FilterIcon, PlusIcon } from "lucide-react";
 import React, { ReactNode, useState } from "react";
 import Collapse from "../../ui/collapse";

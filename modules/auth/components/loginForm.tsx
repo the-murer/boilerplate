@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "@/modules/ui/input";
 
-import { Button, CardBody, CardFooter } from "@nextui-org/react";
+import { Button, CardBody, CardFooter } from "@heroui/react";
 
 const LoginForm = ({ form, onSubmit }: any) => {
   return (
