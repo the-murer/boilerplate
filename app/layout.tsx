@@ -3,7 +3,7 @@ import "@/utils/globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import type { Metadata } from "next";
-import AppDefaultProviders from "@/modules/layout/appDefaultProviders";
+import AppDefaultWrapper from "@/modules/layout/appDefaultWrapper";
 import NavBar from "@/modules/layout/navbar";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import QueryProvider from "@/modules/layout/queryProvider";
@@ -35,14 +35,14 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <NextThemesProvider attribute="class" defaultTheme="light">
-          <AppDefaultProviders>
-            <QueryProvider>
+          <QueryProvider>
+            <AppDefaultWrapper>
               <NavBar />
               <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl">
                 {children}
               </div>
-            </QueryProvider>
-          </AppDefaultProviders>
+            </AppDefaultWrapper>
+          </QueryProvider>
         </NextThemesProvider>
       </body>
     </html>

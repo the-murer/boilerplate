@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
         try {
           
           return { 
-            id: "1", 
+            id: "675393f32fc75c7127648f30", 
             name: "J Smith", 
             email: credentials.email,
             roles: ["admin"]

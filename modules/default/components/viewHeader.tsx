@@ -7,7 +7,7 @@ type ViewHeaderProps = {
   title: string;
   subtitle: string;
   openEditModal: () => void;
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
 const ViewHeader = ({

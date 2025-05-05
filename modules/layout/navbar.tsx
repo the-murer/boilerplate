@@ -10,18 +10,18 @@ import {
 import React from "react";
 import { ThemeSwitch } from "./themeSwitch";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 
 import logo from "@/public/logo_dark.png";
 import logo_light from "@/public/logo_light.png";
 import { useTheme } from "next-themes";
 import UserMenu from "./userMenu";
+import useSessionStore from "../auth/sessionStore";
 
 const NavBar = () => {
   const { theme } = useTheme();
-  const { data: session } = useSession();
+  const { user } = useSessionStore();
 
-  const routes = session?.user
+  const routes = user
     ? [
         {
           label: "Home",
@@ -63,9 +63,9 @@ const NavBar = () => {
         <NavbarItem>
           <ThemeSwitch />
         </NavbarItem>
-        {session?.user ? (
+        {user ? (
           <NavbarItem className="hidden lg:flex">
-            <UserMenu session={session} />
+            <UserMenu user={user} />
           </NavbarItem>
         ) : (
           <NavbarItem className="hidden lg:flex">

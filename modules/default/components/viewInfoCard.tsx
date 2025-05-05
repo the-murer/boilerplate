@@ -3,19 +3,20 @@ import React from "react";
 
 type RowInfoProps = {
   label: string;
-  value: string;
+  value: React.ReactNode;
 };
 
 type PageHeaderProps = {
-  info: RowInfoProps[];
-  isLoading: boolean;
+  info?: RowInfoProps[];
+  isLoading?: boolean;
+  children?: React.ReactNode;
 };
 
 const ViewInfoRow = ({
   label,
   value,
   isLoading,
-}: RowInfoProps & { isLoading: boolean }) => {
+}: RowInfoProps & { isLoading?: boolean }) => {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-2 ">
@@ -32,7 +33,7 @@ const ViewInfoRow = ({
   );
 };
 
-const ViewInfoCard = ({ info, isLoading }: PageHeaderProps) => {
+const ViewInfoCard = ({ info = [], isLoading, children }: PageHeaderProps) => {
   return (
     <div className="flex flex-col gap-4 rounded-lg p-4 my-10 bg-gray-300 dark:bg-gray-800">
       {info.map((item) => (
@@ -43,8 +44,11 @@ const ViewInfoCard = ({ info, isLoading }: PageHeaderProps) => {
           value={item.value}
         />
       ))}
+      {children}
     </div>
   );
 };
 
 export default ViewInfoCard;
+
+ViewInfoCard.Row = ViewInfoRow;

@@ -2,9 +2,10 @@
 
 import NiceModal from "@ebay/nice-modal-react";
 import { SessionProvider } from "next-auth/react";
-import {ToastProvider} from "@heroui/toast";
+import { ToastProvider } from "@heroui/toast";
+import SessionManager from "./sessionManager";
 
-export default function AppDefaultProviders({
+export default function AppDefaultWrapper({
   children,
 }: {
   children: React.ReactNode;
@@ -12,7 +13,9 @@ export default function AppDefaultProviders({
   return (
     <SessionProvider>
       <ToastProvider />
-      <NiceModal.Provider>{children}</NiceModal.Provider>
+      <NiceModal.Provider>
+        <SessionManager>{children}</SessionManager>
+      </NiceModal.Provider>
     </SessionProvider>
   );
 }

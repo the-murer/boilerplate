@@ -8,18 +8,28 @@ import {
 } from "@heroui/react";
 import { User, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { User as UserType } from "@/types/userTypes";
 
-const UserMenu = ({ session }: { session: any }) => {
+const UserMenu = ({ user }: { user: UserType }) => {
+  const { replace } = useRouter();
+
   return (
     <Dropdown>
       <DropdownTrigger>
         <Button variant="bordered">
           <User />
-          {session.user.name}
+          {user?.name}
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="copy">
+        <DropdownItem
+          key="copy"
+          onClick={() => {
+            console.log("clicked");
+            replace("/profile");
+          }}
+        >
           <div className="flex items-center gap-2">
             <User className="w-4 h-4" />
             Perfil
