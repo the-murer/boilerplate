@@ -4,9 +4,9 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { SortEnum } from "@/utils/pagination";
 
 import EmptyTable from "./emptyTable";
-import { SortEnum } from "@/utils/pagination";
 import { MoveDown, MoveUp } from "lucide-react";
 import LoadingTable from "./loadingTable";
 import ErrorTable from "./errorTable";
@@ -58,8 +58,8 @@ const Table = <T,>({
       />
     );
 
-  if (!data || data.length === 0) return <EmptyTable />;
   if (error) return <ErrorTable error={error} />;
+  if (!data || data.length === 0) return <EmptyTable />;
 
   return (
     <div className="rounded-lg overflow-hidden">

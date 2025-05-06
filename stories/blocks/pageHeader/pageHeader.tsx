@@ -1,7 +1,7 @@
 import { Button } from "@heroui/react";
 import { FilterIcon, PlusIcon } from "lucide-react";
 import React, { ReactNode, useState } from "react";
-import Collapse from "./collapse";
+import Collapse from "../../components/collapse/collapse";
 
 type PageHeaderProps = {
   title: string;

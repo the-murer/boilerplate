@@ -1,4 +1,4 @@
-import Input from "@/modules/ui/input";
+import Input from "@/stories/components/input/input";
 import { Button } from "@heroui/react";
 import React from "react";
 import { useForm } from "react-hook-form";

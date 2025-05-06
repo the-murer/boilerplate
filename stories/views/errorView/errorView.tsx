@@ -1,10 +1,10 @@
 import React from "react";
 
-type ErrorPageProps = {
+type ErrorViewProps = {
   error: Error | string;
 };
 
-const ErrorPage = ({ error }: ErrorPageProps) => {
+const ErrorView = ({ error }: ErrorViewProps) => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-bold">Falha ao carregar recurso</h1>
@@ -15,4 +15,4 @@ const ErrorPage = ({ error }: ErrorPageProps) => {
   );
 };
 
-export default ErrorPage;
+export default ErrorView;

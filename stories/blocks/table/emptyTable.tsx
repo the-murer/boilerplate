@@ -1,6 +1,6 @@
+import usePaginationParams from "@/modules/default/hooks/usePaginationParams";
 import { Button } from "@heroui/react";
 import React from "react";
-import usePaginationParams from "../../default/hooks/usePaginationParams";
 
 const EmptyTable = () => {
   const { clearFilters } = usePaginationParams();

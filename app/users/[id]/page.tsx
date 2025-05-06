@@ -6,10 +6,10 @@ import React from "react";
 import { User } from "@/types/userTypes";
 import UpdateUserModal from "@/modules/users/components/updateUserModal";
 import { useParams } from "next/navigation";
-import ViewHeader from "@/modules/default/components/viewHeader";
+import ViewHeader from "@/stories/views/registerView/registerViewHeader";
 import { useGetUser } from "@/modules/users/hooks/useGetUser";
-import ViewInfoCard from "@/modules/default/components/viewInfoCard";
-import ErrorPage from "@/modules/default/components/errorPage";
+import ViewInfoCard from "@/stories/views/registerView/registerViewInfoCard";
+import ErrorPage from "@/stories/views/errorView/errorView";
 
 const showUpdateUserModal = (user: User) =>
   NiceModal.show(UpdateUserModal, user);

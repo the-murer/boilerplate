@@ -5,10 +5,10 @@ import React from "react";
 
 import { User } from "@/types/userTypes";
 import UpdateUserModal from "@/modules/users/components/updateUserModal";
-import ViewHeader from "@/modules/default/components/viewHeader";
+import ViewHeader from "@/stories/views/registerView/registerViewHeader";
 import { useGetUser } from "@/modules/users/hooks/useGetUser";
-import ViewInfoCard from "@/modules/default/components/viewInfoCard";
-import ErrorPage from "@/modules/default/components/errorPage";
+import ViewInfoCard from "@/stories/views/registerView/registerViewInfoCard";
+import ErrorPage from "@/stories/views/errorView/errorView";
 import { Button } from "@heroui/react";
 import { Edit } from "lucide-react";
 import { useAuthenticatedUser } from "@/modules/auth/sessionStore";

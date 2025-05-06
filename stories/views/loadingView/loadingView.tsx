@@ -1,7 +1,7 @@
 import React from 'react'
 import { Spinner } from "@heroui/react"
 
-const LoadingPage = () => {
+const LoadingView = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <Spinner />
@@ -9,4 +9,4 @@ const LoadingPage = () => {
   )
 }
 
-export default LoadingPage
+export default LoadingView;

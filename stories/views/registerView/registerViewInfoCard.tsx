@@ -1,4 +1,4 @@
-import { LoadingGradient } from "@/modules/ui/table/loadingTable";
+import { LoadingGradient } from "@/stories/blocks/table/loadingTable";
 import React from "react";
 
 type RowInfoProps = {
@@ -6,13 +6,13 @@ type RowInfoProps = {
   value: React.ReactNode;
 };
 
-type PageHeaderProps = {
+type RegisterViewInfoCardProps = {
   info?: RowInfoProps[];
   isLoading?: boolean;
   children?: React.ReactNode;
 };
 
-const ViewInfoRow = ({
+const RegisterViewInfoRow = ({
   label,
   value,
   isLoading,
@@ -33,11 +33,11 @@ const ViewInfoRow = ({
   );
 };
 
-const ViewInfoCard = ({ info = [], isLoading, children }: PageHeaderProps) => {
+const RegisterViewInfoCard = ({ info = [], isLoading, children }: RegisterViewInfoCardProps) => {
   return (
     <div className="flex flex-col gap-4 rounded-lg p-4 my-10 bg-gray-300 dark:bg-gray-800">
       {info.map((item) => (
-        <ViewInfoRow
+        <RegisterViewInfoRow
           isLoading={isLoading}
           key={item.label}
           label={item.label}
@@ -49,6 +49,6 @@ const ViewInfoCard = ({ info = [], isLoading, children }: PageHeaderProps) => {
   );
 };
 
-export default ViewInfoCard;
+export default RegisterViewInfoCard;
 
-ViewInfoCard.Row = ViewInfoRow;
+RegisterViewInfoCard.Row = RegisterViewInfoRow;
