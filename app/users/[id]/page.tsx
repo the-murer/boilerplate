@@ -7,9 +7,9 @@ import { User } from "@/types/userTypes";
 import UpdateUserModal from "@/modules/users/components/updateUserModal";
 import { useParams } from "next/navigation";
 import { useGetUser } from "@/modules/users/hooks/useGetUser";
-import ViewInfoCard from "@/stories/views/registerView/registerViewInfoCard";
-import ErrorPage from "@/stories/views/errorView/errorView";
-import PageHeader from "@/stories/blocks/pageHeader/pageHeader";
+import ViewInfoCard from "@/ui/stories/views/registerView/registerViewInfoCard";
+import ErrorPage from "@/ui/stories/views/errorView/errorView";
+import PageHeader from "@/ui/stories/blocks/pageHeader/pageHeader";
 import { PencilIcon } from "lucide-react";
 
 const showUpdateUserModal = (user: User) =>

@@ -11,7 +11,7 @@ import {
 } from "@heroui/react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 
-import SubmitButton from "@/stories/components/submitButton/submitButton";
+import SubmitButton from "@/ui/stories/components/submitButton/submitButton";
 import UserForm from "./userForm";
 import { useCreateUser } from "../hooks/useCreateUser";
 import { useEffect } from "react";

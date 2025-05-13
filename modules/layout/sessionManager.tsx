@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import LoadingPage from "../../stories/views/loadingView/loadingView";
+import LoadingPage from "../../ui/stories/views/loadingView/loadingView";
 import useSessionStore from "../auth/sessionStore";
 import { User } from "@/types/userTypes";
 

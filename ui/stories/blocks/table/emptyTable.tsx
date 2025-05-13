@@ -1,4 +1,4 @@
-import usePaginationParams from "@/modules/default/hooks/usePaginationParams";
+import usePaginationParams from "@/modules/layout/hooks/usePaginationParams";
 import { Button } from "@heroui/react";
 import React from "react";
 

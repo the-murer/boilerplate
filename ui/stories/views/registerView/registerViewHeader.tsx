@@ -1,4 +1,4 @@
-import { LoadingGradient } from "@/stories/blocks/table/loadingTable";
+import { LoadingGradient } from "@/ui/stories/blocks/table/loadingTable";
 import { Button } from "@heroui/react";
 import { PencilIcon } from "lucide-react";
 import React from "react";

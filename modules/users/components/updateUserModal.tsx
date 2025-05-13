@@ -11,7 +11,7 @@ import {
   updateUserByIdResolver,
 } from "@/api/user/serializers/updateUserByIdSerializer";
 
-import SubmitButton from "@/stories/components/submitButton/submitButton";
+import SubmitButton from "@/ui/stories/components/submitButton/submitButton";
 import UserForm from "./userForm";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";

@@ -1,9 +1,9 @@
-import Filters from "@/stories/blocks/filters/filters";
-import Input from "@/stories/components/input/input";
+import Filters from "@/ui/stories/blocks/filters/filters";
+import Input from "@/ui/stories/components/input/input";
 import { Button } from "@heroui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import useUrlParams from "@/modules/default/hooks/usePaginationParams";
+import useUrlParams from "@/modules/layout/hooks/usePaginationParams";
 
 const UserFilters = () => {
   const { aditionalParams, setAditionalParams } = useUrlParams();

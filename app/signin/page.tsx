@@ -2,12 +2,12 @@
 
 import React from "react";
 import { Card, CardHeader } from "@heroui/react";
-import useUrlParams from "@/modules/default/hooks/useUrlParams";
+import useUrlParams from "@/modules/layout/hooks/useUrlParams";
 import { useGetInvite } from "@/modules/auth/hooks/useGetInvite";
 import SignInForm from "@/modules/auth/components/signinForm";
-import LoadingView from "@/stories/views/loadingView/loadingView";
-import ErrorView from "@/stories/views/errorView/errorView";
-import NotFoundView from "@/stories/views/notFoundView/notFoundView";
+import LoadingView from "@/ui/stories/views/loadingView/loadingView";
+import ErrorView from "@/ui/stories/views/errorView/errorView";
+import NotFoundView from "@/ui/stories/views/notFoundView/notFoundView";
 
 const SignIn = () => {
   const { inviteId } = useUrlParams();

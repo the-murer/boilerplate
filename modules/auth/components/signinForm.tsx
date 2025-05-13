@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Input from "@/stories/components/input/input";
+import Input from "@/ui/stories/components/input/input";
 
 import { Button, CardBody, CardFooter } from "@heroui/react";
 import { useForm } from "react-hook-form";

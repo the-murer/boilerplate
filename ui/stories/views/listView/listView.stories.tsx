@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import PageHeader from "@/stories/blocks/pageHeader/pageHeader";
+import PageHeader from "@/ui/stories/blocks/pageHeader/pageHeader";
 import { PencilIcon } from "lucide-react";
-import Table from "@/stories/blocks/table/table";
-import Pagination from "@/stories/blocks/pagination/pagination";
-import Filters from "@/stories/blocks/filters/filters";
-import Input from "@/stories/components/input/input";
+import Table from "@/ui/stories/blocks/table/table";
+import Pagination from "@/ui/stories/blocks/pagination/pagination";
+import Filters from "@/ui/stories/blocks/filters/filters";
+import Input from "@/ui/stories/components/input/input";
 import { useForm } from "react-hook-form";
 import { SortEnum } from "@/utils/pagination";
 

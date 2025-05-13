@@ -5,13 +5,13 @@ import NiceModal from "@ebay/nice-modal-react";
 import React from "react";
 
 import CreateUserModal from "@/modules/users/components/createUserModal";
-import PageHeader from "@/stories/blocks/pageHeader/pageHeader";
-import Pagination from "@/stories/blocks/pagination/pagination";
-import Table from "@/stories/blocks/table/table";
-import TableAction from "@/stories/blocks/table/tableAction";
+import PageHeader from "@/ui/stories/blocks/pageHeader/pageHeader";
+import Pagination from "@/ui/stories/blocks/pagination/pagination";
+import Table from "@/ui/stories/blocks/table/table";
+import TableAction from "@/ui/stories/blocks/table/tableAction";
 import { User } from "@/types/userTypes";
 import { useGetUsers } from "@/modules/users/hooks/useGetUsers";
-import useUrlParams from "@/modules/default/hooks/usePaginationParams";
+import useUrlParams from "@/modules/layout/hooks/usePaginationParams";
 import UserFilters from "@/modules/users/components/userFilters";
 import UpdateUserModal from "@/modules/users/components/updateUserModal";
 import DeleteUserModal from "@/modules/users/components/deleteUserModal";

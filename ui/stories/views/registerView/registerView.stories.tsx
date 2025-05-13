@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import RegisterViewHeader from "./registerViewHeader";
 import RegisterViewInfoCard from "./registerViewInfoCard";
-import PageHeader from "@/stories/blocks/pageHeader/pageHeader";
+import PageHeader from "@/ui/stories/blocks/pageHeader/pageHeader";
 import { PencilIcon } from "lucide-react";
 
 const meta = {
