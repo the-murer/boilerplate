@@ -2,6 +2,7 @@ import { Button } from "@heroui/react";
 import { FilterIcon, PlusIcon } from "lucide-react";
 import React, { ReactNode, useState } from "react";
 import Collapse from "../../components/collapse/collapse";
+import { LoadingGradient } from "../table/loadingTable";
 
 type PageHeaderProps = {
   title: string;
@@ -9,6 +10,7 @@ type PageHeaderProps = {
   openAddModal?: () => void;
   children?: React.ReactNode;
   filterComponent?: React.ReactNode;
+  isLoading?: boolean;
 };
 
 type PageHeaderButtonProps = {
@@ -41,6 +43,7 @@ const PageHeader = ({
   subtitle,
   openAddModal,
   filterComponent,
+  isLoading,
   children,
 }: PageHeaderProps) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -51,7 +54,9 @@ const PageHeader = ({
     <>
       <div className="flex items-start pt-10">
         <div className="flex flex-col gap-2">
-          <h1 className="text-5xl font-bold">{title}</h1>
+          <h1 className="text-5xl font-bold">
+            {isLoading ? <LoadingGradient /> : title}
+          </h1>
           <p className="text-lg">{subtitle}</p>
         </div>
         <div className="flex items-center justify-center mt-2 ml-5 gap-5">

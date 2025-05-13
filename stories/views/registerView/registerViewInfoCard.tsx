@@ -35,7 +35,7 @@ const RegisterViewInfoRow = ({
 
 const RegisterViewInfoCard = ({ info = [], isLoading, children }: RegisterViewInfoCardProps) => {
   return (
-    <div className="flex flex-col gap-4 rounded-lg p-4 my-10 bg-gray-300 dark:bg-gray-800">
+    <div className="flex flex-col rounded-lg p-4 bg-gray-300 dark:bg-gray-800">
       {info.map((item) => (
         <RegisterViewInfoRow
           isLoading={isLoading}

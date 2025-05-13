@@ -1,65 +1,41 @@
+import Filters from "@/stories/blocks/filters/filters";
 import Input from "@/stories/components/input/input";
 import { Button } from "@heroui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import useUrlParams from "@/modules/default/hooks/usePaginationParams";
 
-type UserFiltersProps = {
-  aditionalParams: Record<string, string>;
-  setAditionalParams: (params: Record<string, string>) => void;
-};
+const UserFilters = () => {
+  const { aditionalParams, setAditionalParams } = useUrlParams();
 
-const UserFilters = ({
-  aditionalParams,
-  setAditionalParams,
-}: UserFiltersProps) => {
   const form = useForm({
     defaultValues: aditionalParams,
   });
 
-  const handleFilterSubmit = () => {
-    form.handleSubmit((data: any) => {
-      setAditionalParams(data);
-    })();
-  };
-
-  const clearFilters = () => {
-    setAditionalParams({});
-    form.reset();
-  };
-
   return (
-    <form className="flex flex-col gap-4">
-      <div className="flex gap-4">
-        <div className="w-1/2">
+    <Filters
+      aditionalParams={aditionalParams}
+      setAditionalParams={setAditionalParams}
+    >
+      <Filters.Row>
+        <Filters.Column>
           <Input
             label="Nome"
             placeholder="Digite o nome do usuário"
             form={form}
             name="name"
           />
-        </div>
-        <div className="w-1/2">
+        </Filters.Column>
+        <Filters.Column>
           <Input
             label="Email"
             placeholder="Digite o email do usuário"
             form={form}
             name="email"
           />
-        </div>
-      </div>
-      <div className="flex gap-4 justify-end">
-        <Button variant="ghost" onPress={clearFilters}>
-          Limpar
-        </Button>
-        <Button
-          color="primary"
-          type="submit"
-          onPress={() => handleFilterSubmit()}
-        >
-          Filtrar
-        </Button>
-      </div>
-    </form>
+        </Filters.Column>
+      </Filters.Row>
+    </Filters>
   );
 };
 

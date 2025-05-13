@@ -55,7 +55,6 @@ const ListUsers = () => {
     sortOrder,
     handleSortChange,
     aditionalParams,
-    setAditionalParams,
   } = useUrlParams();
 
   const { data, isLoading, error } = useGetUsers({
@@ -72,12 +71,7 @@ const ListUsers = () => {
         title="Listagem de Usuários"
         subtitle="Veja todos os usuários cadastrados no sistema"
         openAddModal={showCreateUserModal}
-        filterComponent={
-          <UserFilters
-            aditionalParams={aditionalParams}
-            setAditionalParams={setAditionalParams}
-          />
-        }
+        filterComponent={<UserFilters />}
       />
 
       <Table
