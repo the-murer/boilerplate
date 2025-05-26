@@ -1,7 +1,7 @@
 import { CommandHandler, ValidationFunction } from "@/types/commandHandler";
 
 import { NextResponse } from "next/server";
-import { ZodSchema } from "zod";
+import { ZodIssue, ZodSchema } from "zod";
 import { PaginationType } from "./pagination";
 
 type PageFetcherProps = {
@@ -17,7 +17,10 @@ export const parseZodError = <T>(schema: ZodSchema, data: T) => {
   if (!result.success) {
     return {
       success: false,
-      errors: result.error.errors.map((error: any) => error.message),
+      errors: result.error.errors.map(
+        (error: ZodIssue) =>
+          `Validation error "${error.path.join(",")}": ${error.message}`
+      ),
     };
   }
   return result.data;

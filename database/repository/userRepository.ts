@@ -20,12 +20,27 @@ export async function findUsersWithPagination({
   name,
   email,
 }: PaginationType & UserFilters): Promise<PaginatedResult> {
-  
   const query: any = {};
-  
+
   if (name) query.name = { $regex: name, $options: "i" };
   if (email) query.email = { $regex: email, $options: "i" };
-  
+
+  if (page === 0) {
+    const users = await User.find(query)
+      .sort({ [sortField]: sortOrder })
+      .limit(limit);
+    return {
+      users,
+      metadata: {
+        totalPages: 1,
+        currentPage: 1,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        totalEntries: users.length,
+      },
+    };
+  }
+
   const totalEntries = await User.countDocuments(query);
   const totalPages = Math.ceil(totalEntries / limit);
   const users = (await User.find(query)
