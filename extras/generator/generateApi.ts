@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { BaseObject } from './default';
+import { BaseObject } from '.';
 import { generateCreateSerializer } from './api/templates/serializers/createSerializer';
 import { generateUpdateSerializer } from './api/templates/serializers/updateSerializer';
 import { generateDeleteSerializer } from './api/templates/serializers/deleteSerializer';
@@ -8,15 +8,11 @@ import { generateGetByIdSerializer } from './api/templates/serializers/getSerial
 import { generateCreateHandler } from './api/templates/handlers/createHandler';
 import { generateUpdateHandler } from './api/templates/handlers/updateHandler';
 import { generateDeleteHandler } from './api/templates/handlers/deleteHandler';
-import { generateGetHandler } from './api/generateHandlers';
 import { generateGetByIdHandler } from './api/templates/handlers/paginatedHandler';
+import { generateGetHandler } from './api/templates/handlers/getHandler';
 import { generateIdFile } from './api/templates/routes/idRoute';
 import { generateInitialFile } from './api/templates/routes/initialRoute';
-
-function writeFile(content: string, pathName: string) {
-  fs.writeFileSync(pathName, content);
-  process.exit();
-}
+import { writeFile } from './utils';
 
 export function generateApi(obj: BaseObject) {
   generateApiRoutes(obj);

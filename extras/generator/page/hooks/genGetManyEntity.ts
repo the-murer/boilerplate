@@ -1,4 +1,4 @@
-import { BaseObject } from "@/generator/default";
+import { BaseObject } from "../..";
 
 export function generateGetManyHook(obj: BaseObject) {
   const { entity, path, model } = obj;

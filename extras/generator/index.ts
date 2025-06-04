@@ -1,23 +1,57 @@
-import { generateApi } from "./generateApi";
-import { plural } from "pluralize";
-
-const readline = require('readline');
+import { toCamelCase, toPascalCase, toKebabCase, toSnakeCase, toPluralCamelCase, toPluralPascalCase, toPluralKebabCase } from "./utils";
+import { generatePages } from "./generatePage";
+import readline from 'readline';
+import { generateExtras } from "./generateExtras";
 
 interface ModelAttribute {
   name: string;
   type: string;
 }
 
+
+declare global {
+  interface String {
+    camelCase(): string;
+    pascalCase(): string;
+    kebabCase(): string;
+    snakeCase(): string;
+    pluralCamel(): string;
+    pluralPascal(): string;
+    pluralKebab(): string;
+  }
+}
+
+String.prototype.camelCase = function () {
+  return toCamelCase(this as string);
+};
+
+String.prototype.pascalCase = function () {
+  return toPascalCase(this as string);
+};
+
+String.prototype.kebabCase = function () {
+  return toKebabCase(this as string);
+};
+
+String.prototype.snakeCase = function () {
+  return toSnakeCase(this as string);
+};
+
+String.prototype.pluralCamel = function () {
+  return toPluralCamelCase(this as string);
+};
+
+String.prototype.pluralPascal = function () {
+  return toPluralPascalCase(this as string);
+};
+
+String.prototype.pluralKebab = function () {
+  return toPluralKebabCase(this as string);
+};
+
+
 export interface BaseObject {
-  entity: {
-    camelCase: string;
-    pascalCase: string;
-    kebabCase: string;
-    snakeCase: string;
-    pluralCamel: string;
-    pluralPascal: string;
-    pluralKebab: string;
-  };
+  entity: string;
   path: string;
   initApi: boolean;
   initPage: boolean;
@@ -27,15 +61,7 @@ export interface BaseObject {
 
 // OBJETO BASE INICIAL
 const baseObject: BaseObject = {
-  entity: {
-    camelCase: '',
-    pascalCase: '',
-    kebabCase: '',
-    snakeCase: '',
-    pluralCamel: '',
-    pluralPascal: '',
-    pluralKebab: '',
-  },
+  entity: '',
   path: '',
   initApi: false,
   initPage: false,
@@ -100,30 +126,22 @@ function generateFiles(baseObject: BaseObject) {
   const { initApi, initPage } = baseObject;
 
   if (initApi) {
-    generateApi(baseObject);
+    // generateApi(baseObject);
     console.log('Gerando API...');
   }
 
   if (initPage) {
+    generatePages(baseObject);
     console.log('Gerando Página...');
   }
-}
 
-function generateEntityNames(entityName: string) {
-  const camelCase = entityName.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
-  const pascalCase = camelCase.replace(/(^|\s+)[a-z]/g, (match) => match.toUpperCase());
-  const kebabCase = entityName.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, '$1-');
-  const snakeCase = entityName.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, '_$1');
-  const pluralCamel = plural(camelCase);
-  const pluralPascal = plural(pascalCase);
-  const pluralKebab = plural(kebabCase);
-
-  return { camelCase, pascalCase, pluralCamel, pluralPascal, kebabCase, pluralKebab, snakeCase };
+  generateExtras(baseObject);
+  console.log('Gerando Extras...');
 }
 
 // GERENCIADOR DE GERADOR
 async function main() {
-  baseObject.entity = generateEntityNames(await askQuestion('Nome da entidade:'));
+  baseObject.entity = await askQuestion('Nome da entidade:');
   baseObject.path = await askQuestion('Caminho do arquivo:');
   baseObject.initApi = await askBooleanOption('Gerar API?');
   baseObject.initPage = await askBooleanOption('Gerar Página?');

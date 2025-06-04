@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006 -c ui/.storybook",
-    "build-storybook": "storybook build -c ui/.storybook"
+    "build-storybook": "storybook build -c ui/.storybook",
+    "generate": "npx tsx extras/generator/index.ts"
   },
+  "type": "module",
   "dependencies": {
     "@casl/ability": "^6.7.3",
     "@heroui/react": "^2.7.8",
@@ -56,7 +58,10 @@
     "readline": "^1.3.0",
     "storybook": "^8.6.12",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
     "vitest": "^3.1.3"
   }
 }

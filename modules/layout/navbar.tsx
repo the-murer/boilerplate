@@ -31,6 +31,10 @@ const NavBar = () => {
           label: "Usuários",
           href: "/users",
         },
+        {
+          label: "Gerenciamento",
+          href: "/management",
+        },
       ]
     : [
         {
