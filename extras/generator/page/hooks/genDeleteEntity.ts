@@ -1,26 +1,25 @@
-import { BaseObject } from "@/generator/default";
+import { BaseObject } from "../..";
 
 export function generateDeleteHook(obj: BaseObject) {
   const { entity } = obj;
-  const { pascalCase, camelCase, kebabCase } = entity;
 
   const hook = `
-import { Delete${pascalCase}ByIdInput } from "@/api/${camelCase}/serializers/delete${pascalCase}ByIdSerializer";
+import { Delete${entity.pascalCase()}ByIdInput } from "@/api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}ByIdSerializer";
 import { pageFetcher } from "@/utils/apiUtils";
 import { useMutation } from "@tanstack/react-query";
 
-const delete${pascalCase} = async ({ ${camelCase}Id }: Delete${pascalCase}ByIdInput) =>
+const delete${entity.pascalCase()} = async ({ ${entity.camelCase()}Id }: Delete${entity.pascalCase()}ByIdInput) =>
   pageFetcher({
-    endPoint: \`api/${kebabCase}/\${${camelCase}Id}\`,
+    endPoint: \`api/${entity.kebabCase()}/\${${entity.camelCase()}Id}\`,
     method: "DELETE",
   });
 
-export const useDelete${pascalCase} = () => {
+export const useDelete${entity.pascalCase()} = () => {
   return useMutation({
-    mutationFn: delete${pascalCase},
+    mutationFn: delete${entity.pascalCase()},
   });
 };
 
-  `;
-  return hook
+`;
+  return hook;
 }

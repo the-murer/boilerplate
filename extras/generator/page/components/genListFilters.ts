@@ -1,4 +1,5 @@
 import { BaseObject } from "../..";
+import { mapObjectFields } from "../../utils";
 
 export function generateListFilters({ entity, model }: BaseObject) {
   const page = `
@@ -19,9 +20,7 @@ const ${entity.pascalCase()}Filters = () => {
       aditionalParams={aditionalParams}
       setAditionalParams={setAditionalParams}
     >
-    ${Object.entries(model)
-      .map(
-        ([key, value]) => `
+    ${mapObjectFields(model, (key, value) => `
       <Filters.Row>
         <Input
         form={form}

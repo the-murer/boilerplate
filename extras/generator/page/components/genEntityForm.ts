@@ -1,4 +1,5 @@
 import { BaseObject } from "../..";
+import { mapObjectFields } from "../../utils";
 
 export function generateEntityForm({ entity, model }: BaseObject) {
   const page = `
@@ -13,9 +14,9 @@ type ${entity.pascalCase()}FormProps = {
 const ${entity.pascalCase()}Form = ({ form }: ${entity.pascalCase()}FormProps) => {
   return (
     <div>
-      ${Object.entries(model)
-        .map(
-          ([key, value]) => `
+      ${mapObjectFields(
+        model,
+        (key, value) => `
       <Input
         form={form}
         label="${key}"
@@ -23,8 +24,7 @@ const ${entity.pascalCase()}Form = ({ form }: ${entity.pascalCase()}FormProps) =
         name="${key}"
         type="${value}"
       />`
-        )
-        .join("\n  ")}
+      ).join("\n  ")}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { BaseObject } from "../..";
+import { mapObjectFields } from "../../utils";
 
 export function generateUpdateModal({ entity, model }: BaseObject) {
   const page = `
@@ -24,9 +25,7 @@ import { useUpdate${entity.pascalCase()} } from "../hooks/useUpdate${entity.pasc
 
 type Update${entity.pascalCase()}ModalProps = {
   id: string;
-  ${Object.entries(model)
-    .map(([key, value]) => `${key}: ${value}`)
-    .join(",\n  ")}
+  ${mapObjectFields(model, (key, value) => `${key}: ${value}`).join(",\n  ")}
 };
 
 const Update${entity.pascalCase()}Modal = NiceModal.create(

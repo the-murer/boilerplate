@@ -1,5 +1,6 @@
 // import { plural } from "pluralize";
 import fs from "fs";
+import { BaseObject } from ".";
 function toCamelCase(str: string): string {
   return str
     .toLowerCase()
@@ -40,7 +41,6 @@ function toPluralKebabCase(str: string): string {
   return toKebabCase(str) + "s";
 }
 
-
 function writeFile(content: string, pathName: string) {
   if (fs.existsSync(pathName)) {
     console.log(`File ${pathName} already exists`);
@@ -48,12 +48,19 @@ function writeFile(content: string, pathName: string) {
   }
 
   // Create directory if it doesn't exist
-  const dir = pathName.substring(0, pathName.lastIndexOf('/'));
+  const dir = pathName.substring(0, pathName.lastIndexOf("/"));
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
   fs.writeFileSync(pathName, content);
+}
+
+function mapObjectFields(
+  model: BaseObject["model"],
+  writeFunction: (name: string, value: string) => string
+) {
+  return Object.entries(model).map(([key, value]) => writeFunction(key, value));
 }
 
 export {
@@ -64,5 +71,6 @@ export {
   toPluralCamelCase,
   toPluralPascalCase,
   toPluralKebabCase,
-  writeFile
+  writeFile,
+  mapObjectFields,
 };

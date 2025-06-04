@@ -1,16 +1,16 @@
 import { BaseObject } from "../..";
 
 export function generateGetManyHook(obj: BaseObject) {
-  const { entity, path, model } = obj;
-  const { pascalCase, camelCase, kebabCase, pluralPascal } = entity;
+  const { entity } = obj;
 
   const hook = `
 import { getQueryString, pageFetcher } from "@/utils/apiUtils";
 import { PaginationType } from "@/utils/pagination";
 import { useQuery } from "@tanstack/react-query";
 
+const get${entity.pluralPascal()}Key = "${entity.pluralCamel()}";
 
-const get${pluralPascal} = async ({
+const get${entity.pluralPascal()} = async ({
   page,
   limit,
   sortField,
@@ -18,7 +18,7 @@ const get${pluralPascal} = async ({
   ...aditionalParams
 }: PaginationType) =>
   pageFetcher({
-    endPoint: \`api/${kebabCase}?\${getQueryString({
+    endPoint: \`api/${entity.kebabCase()}?\${getQueryString({
       page,
       limit,
       sortField,
@@ -28,7 +28,7 @@ const get${pluralPascal} = async ({
     method: "GET",
   });
 
-export const useGet${pluralPascal} = ({
+export const useGet${entity.pluralPascal()} = ({
   page,
   limit,
   sortField,
@@ -36,12 +36,17 @@ export const useGet${pluralPascal} = ({
   ...aditionalParams
 }: PaginationType) => {
   return useQuery({
-    queryKey: ["${pluralPascal}", page, limit, sortField, sortOrder, aditionalParams],
+    queryKey: [get${entity.pluralPascal()}Key, page, limit, sortField, sortOrder, aditionalParams],
     queryFn: () =>
-      get${pluralPascal}({ page, limit, sortField, sortOrder, ...aditionalParams }),
+      get${entity.pluralPascal()}({
+        page,
+        limit,
+        sortField,
+        sortOrder,
+        ...aditionalParams,
+      }),
   });
 };
-
   `;
   return hook;
 }

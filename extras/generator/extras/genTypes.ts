@@ -1,4 +1,5 @@
 import { BaseObject } from "..";
+import { mapObjectFields } from "../utils";
 
 export function generateTypesFile({ entity, model }: BaseObject) {
   const page = `
@@ -6,8 +7,7 @@ import { z } from "zod";
 
 export const ${entity.pascalCase()}Schema = z.object({
   id: z.string(),
-  ${Object.entries(model)
-    .map(([key, value]) => `${key}: z.${value}()`)
+  ${mapObjectFields(model, (key, value) => `${key}: z.${value}()`)
     .join(",\n  ")}
 });
 

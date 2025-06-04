@@ -9,7 +9,7 @@ import {
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { useEffect } from "react";
 
-import { useDeleteUser } from "../hooks/useDeleteUsers";
+import { useDeleteUser } from "../hooks/useDeleteUser";
 
 type DeleteUserModalProps = {
   id: string;

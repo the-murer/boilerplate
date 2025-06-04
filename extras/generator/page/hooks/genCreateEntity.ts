@@ -1,23 +1,21 @@
-import { BaseObject } from "@/generator/default";
-
+import { BaseObject } from "../..";
 
 export function generateCreateHook(obj: BaseObject) {
-  const { entity, path, model } = obj;
-  const { pascalCase, camelCase, kebabCase } = entity;
+  const { entity } = obj;
 
   const hook = `
-import { Create${pascalCase}Input } from "@/api/${camelCase}/serializers/create${pascalCase}Serializer";
+import { Create${entity.pascalCase()}Input } from "@/api/${entity.camelCase()}/serializers/create${entity.pascalCase()}Serializer";
 import { pageFetcher } from "@/utils/apiUtils";
 import { useMutation } from "@tanstack/react-query";
 
-const create${pascalCase} = async (data: Create${pascalCase}Input) =>
-  pageFetcher({ data, endPoint: "api/${kebabCase}", method: "POST" });
+const create${entity.pascalCase()} = async (data: Create${entity.pascalCase()}Input) =>
+  pageFetcher({ data, endPoint: "api/${entity.kebabCase()}", method: "POST" });
 
-export const useCreate${pascalCase} = () => {
+export const useCreate${entity.pascalCase()} = () => {
   return useMutation({
-    mutationFn: create${pascalCase},
+    mutationFn: create${entity.pascalCase()},
   });
 };
-  `;
-return hook
+`;
+  return hook;
 }
