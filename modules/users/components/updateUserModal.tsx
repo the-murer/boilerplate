@@ -6,17 +6,17 @@ import {
   ModalHeader,
 } from "@heroui/react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import SubmitButton from "@/ui/stories/components/submitButton/submitButton";
+
 import {
   UpdateUserByIdInput,
   updateUserByIdResolver,
 } from "@/api/user/serializers/updateUserByIdSerializer";
-
-import SubmitButton from "@/ui/stories/components/submitButton/submitButton";
 import UserForm from "./userForm";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { useUpdateUser } from "../hooks/useUpdateUser";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 type UpdateUserModalProps = {
   id: string;

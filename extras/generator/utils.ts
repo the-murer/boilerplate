@@ -54,7 +54,6 @@ function writeFile(content: string, pathName: string) {
   }
 
   fs.writeFileSync(pathName, content);
-  process.exit();
 }
 
 export {

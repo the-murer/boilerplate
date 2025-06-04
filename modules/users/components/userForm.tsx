@@ -1,8 +1,6 @@
-import { Form } from "@heroui/react";
 import { UseFormReturn } from "react-hook-form";
 
 import Input from "@/ui/stories/components/input/input";
-import React from "react";
 
 type UserFormProps = {
   form: UseFormReturn<any, any, undefined>;

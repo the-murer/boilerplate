@@ -7,8 +7,8 @@ import {
   ModalHeader,
 } from "@heroui/react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
-
 import { useEffect } from "react";
+
 import { useDeleteUser } from "../hooks/useDeleteUsers";
 
 type DeleteUserModalProps = {

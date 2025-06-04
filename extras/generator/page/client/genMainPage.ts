@@ -1,28 +1,27 @@
 import { BaseObject } from "../..";
 
 export function generateMainPageFile(obj: BaseObject) {
-  const { entity, path, model } = obj;
+  const { entity, model } = obj;
 
-  console.log(entity.pascalCase());
   const page = `
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
 import NiceModal from "@ebay/nice-modal-react";
 import React from "react";
-
 import PageHeader from "@/ui/stories/blocks/pageHeader/pageHeader";
 import Pagination from "@/ui/stories/blocks/pagination/pagination";
 import Table from "@/ui/stories/blocks/table/table";
 import useUrlParams from "@/modules/layout/hooks/usePaginationParams";
 import ComponentAbilityCheck from "@/modules/auth/componentAbilityCheck";
 import TableAction from "@/ui/stories/blocks/table/tableAction";
-import { ${entity.pascalCase()} } from "@/types/${entity}Types";
-import { useGet${entity.pluralPascal()} } from "@/modules/${entity}/hooks/useGet${entity.pluralPascal()}";
-import ${entity.pascalCase()}Filters from "@/modules/${entity}/components/${entity.camelCase()}Filters";
-import Create${entity.pascalCase()}Modal from "@/modules/${entity}/components/create${entity.pascalCase()}Modal";
-import Update${entity.pascalCase()}Modal from "@/modules/${entity}/components/update${entity.pascalCase()}Modal";
-import Delete${entity.pascalCase()}Modal from "@/modules/${entity}/components/delete${entity.pascalCase()}Modal";
+
+import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
+import { useGet${entity.pluralPascal()} } from "@/modules/${entity.camelCase()}/hooks/useGet${entity.pluralPascal()}";
+import ${entity.pascalCase()}Filters from "@/modules/${entity.camelCase()}/components/${entity.camelCase()}Filters";
+import Create${entity.pascalCase()}Modal from "@/modules/${entity.camelCase()}/components/create${entity.pascalCase()}Modal";
+import Update${entity.pascalCase()}Modal from "@/modules/${entity.camelCase()}/components/update${entity.pascalCase()}Modal";
+import Delete${entity.pascalCase()}Modal from "@/modules/${entity.camelCase()}/components/delete${entity.pascalCase()}Modal";
 
 const columns: ColumnDef<${entity.pascalCase()}>[] = [
   ${Object.keys(model).map((field) => `{
@@ -44,10 +43,10 @@ const columns: ColumnDef<${entity.pascalCase()}>[] = [
   },
 ];
 const showCreate${entity.pascalCase()}Modal = () => NiceModal.show(Create${entity.pascalCase()}Modal);
-const showUpdate${entity.pascalCase()}Modal = (${entity.pascalCase()}: ${entity.pascalCase()}) =>
-  NiceModal.show(Update${entity.pascalCase()}Modal, ${entity.pascalCase()});
-const showDelete${entity.pascalCase()}Modal = (${entity.pascalCase()}: ${entity.pascalCase()}) =>
-  NiceModal.show(Delete${entity.pascalCase()}Modal, ${entity.pascalCase()});
+const showUpdate${entity.pascalCase()}Modal = (${entity.camelCase()}: ${entity.pascalCase()}) =>
+  NiceModal.show(Update${entity.pascalCase()}Modal, ${entity.camelCase()});
+const showDelete${entity.pascalCase()}Modal = (${entity.camelCase()}: ${entity.pascalCase()}) =>
+  NiceModal.show(Delete${entity.pascalCase()}Modal, ${entity.camelCase()});
 
 const List${entity.pascalCase()} = () => {
   const {

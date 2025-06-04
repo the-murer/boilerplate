@@ -1,8 +1,4 @@
 import {
-  CreateUserInput,
-  createUserResolver,
-} from "@/api/user/serializers/createUserSerializer";
-import {
   Modal,
   ModalBody,
   ModalContent,
@@ -10,13 +6,17 @@ import {
   ModalHeader,
 } from "@heroui/react";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
-
-import SubmitButton from "@/ui/stories/components/submitButton/submitButton";
-import UserForm from "./userForm";
-import { useCreateUser } from "../hooks/useCreateUser";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import SubmitButton from "@/ui/stories/components/submitButton/submitButton";
+
+import UserForm from "./userForm";
+import {
+  CreateUserInput,
+  createUserResolver,
+} from "@/api/user/serializers/createUserSerializer";
+import { useCreateUser } from "../hooks/useCreateUser";
 
 const CreateUserModal = NiceModal.create(() => {
   const form = useForm<CreateUserInput>({

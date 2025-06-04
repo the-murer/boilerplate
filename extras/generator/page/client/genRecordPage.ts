@@ -8,15 +8,16 @@ export function generateRecordPage(obj: BaseObject) {
 
 import NiceModal from "@ebay/nice-modal-react";
 import React from "react";
-
 import ViewInfoCard from "@/ui/stories/views/registerView/registerViewInfoCard";
 import ErrorPage from "@/ui/stories/views/errorView/errorView";
 import PageHeader from "@/ui/stories/blocks/pageHeader/pageHeader";
 import { PencilIcon } from "lucide-react";
 import { useParams } from "next/navigation";
+import ComponentAbilityCheck from "@/modules/auth/componentAbilityCheck";
+
 import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
-import Update${entity.pascalCase()}Modal from "@/modules/${entity}/components/update${entity.pascalCase()}Modal";
-import { useGet${entity.pascalCase()} } from "@/modules/${entity}/hooks/useGet${entity.pascalCase()}";
+import Update${entity.pascalCase()}Modal from "@/modules/${entity.camelCase()}/components/update${entity.pascalCase()}Modal";
+import { useGet${entity.pascalCase()} } from "@/modules/${entity.camelCase()}/hooks/useGet${entity.pascalCase()}";
 
 const showUpdate${entity.pascalCase()}Modal = (${entity.camelCase()}: ${entity.pascalCase()}) =>
   NiceModal.show(Update${entity.pascalCase()}Modal, ${entity.camelCase()});
@@ -38,14 +39,16 @@ const ${entity.pascalCase()}Page = () => {
   }
 
   return (
-    <>
+    <ComponentAbilityCheck role="${entity.pascalCase()}" action="read">
       <PageHeader
         title={data?.${entity.camelCase()}?.name}
         subtitle="Visualize os dados do ${entity.pascalCase()}"
       >
-        <PageHeader.Button onPress={() => showUpdate${entity.pascalCase()}Modal(data?.${entity.camelCase()})}>
-          <PencilIcon className="w-5 h-5" />
-        </PageHeader.Button>
+        <ComponentAbilityCheck role="${entity.pascalCase()}" action="update">
+          <PageHeader.Button onPress={() => showUpdate${entity.pascalCase()}Modal(data?.${entity.camelCase()})}>
+            <PencilIcon className="w-5 h-5" />
+          </PageHeader.Button>
+        </ComponentAbilityCheck>
       </PageHeader>
       <ViewInfoCard
         isLoading={isLoading}
@@ -56,7 +59,7 @@ const ${entity.pascalCase()}Page = () => {
           )
           .join(",\n")}]}
       />
-    </>
+    </ComponentAbilityCheck>
   );
 };
 
