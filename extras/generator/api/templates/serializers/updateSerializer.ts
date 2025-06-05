@@ -1,42 +1,37 @@
-import { BaseObject } from "@/generator/default";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateUpdateSerializer(obj: BaseObject) {
     const { entity, model } = obj;
-    const { pascalCase, camelCase } = entity;
   
     const serializer = `
   import { CommandHandler, DefaultResponse } from "@/types/commandHandler";
   
-  import { ${pascalCase} } from "@/types/${camelCase}Types";
+  import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
   import { parseZodError } from "@/utils/apiUtils";
   import { z } from "zod";
   
-  export const update${pascalCase}ByIdResolver = z.object({
-    ${camelCase}Id: z.string({ required_error: \`Id do ${pascalCase} é obrigatório\` }),
-  ${Object.keys(model)
-    .map(
-      (field) => `
-    ${field}: z.${model[field]}(),`
-    )
-    .join("\n")}
+  export const update${entity.pascalCase()}ByIdResolver = z.object({
+    ${entity.camelCase()}Id: z.string({ required_error: \`Id do ${entity.pascalCase()} é obrigatório\` }),
+  ${mapObjectFields(model, (key, value) => `${key}: z.${value}(),`).join("\n")}
   });
   
   // === API HANDLERS ===
   
-  export const validateUpdate${pascalCase}ByIdInput = (data: Update${pascalCase}ByIdInput) =>
-    parseZodError<Update${pascalCase}ByIdInput>(update${pascalCase}ByIdResolver, data);
+  export const validateUpdate${entity.pascalCase()}ByIdInput = (data: Update${entity.pascalCase()}ByIdInput) =>
+    parseZodError<Update${entity.pascalCase()}ByIdInput>(update${entity.pascalCase()}ByIdResolver, data);
   
-  export type Update${pascalCase}ByIdHandler = CommandHandler<
-    Update${pascalCase}ByIdInput,
-    Promise<Update${pascalCase}ByIdOutput>
+  export type Update${entity.pascalCase()}ByIdHandler = CommandHandler<
+    Update${entity.pascalCase()}ByIdInput,
+    Promise<Update${entity.pascalCase()}ByIdOutput>
   >;
   
   // === EXPLICIT TYPES ===
   
-  export type Update${pascalCase}ByIdInput = z.infer<typeof update${pascalCase}ByIdResolver>;
+  export type Update${entity.pascalCase()}ByIdInput = z.infer<typeof update${entity.pascalCase()}ByIdResolver>;
   
-  interface Update${pascalCase}ByIdOutput extends DefaultResponse {
-    ${camelCase}: ${pascalCase};
+  interface Update${entity.pascalCase()}ByIdOutput extends DefaultResponse {
+    ${entity.camelCase()}: ${entity.pascalCase()};
   }
   
     `;

@@ -1,30 +1,29 @@
-import { BaseObject } from "@/generator/default";
+import { BaseObject } from "@/types/generatorTypes";
 
 
 export function generateGetByIdHandler(obj: BaseObject) {
-  const { entity, path, model } = obj;
-  const { pascalCase, camelCase } = entity;
+  const { entity } = obj;
 
   const handler = `
-import { Get${pascalCase}ByIdHandler as Handler } from "@/api/${camelCase}/serializers/get${pascalCase}ByIdSerializer";
+import { Get${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/get${entity.pascalCase()}ByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
-import { find${pascalCase}ById } from "@/database/repository/${camelCase}Repository";
-import { ${camelCase}Schema } from "@/types/${camelCase}Types";
+import { find${entity.pascalCase()}ById } from "@/database/repository/${entity.camelCase()}Repository";
+import { ${entity.camelCase()}Schema } from "@/types/${entity.camelCase()}Types";
 
-const sanitized${pascalCase}Schema = ${camelCase}Schema.omit({ password: true });
+const sanitized${entity.pascalCase()}Schema = ${entity.camelCase()}Schema.omit({ password: true });
 
-export const get${pascalCase}ByIdHandler: Handler = async ({ ${camelCase}Id }) => {
+export const get${entity.pascalCase()}ByIdHandler: Handler = async ({ ${entity.camelCase()}Id }) => {
   await dbConnect();
-  const ${camelCase} = await find${pascalCase}ById(${camelCase}Id);
+  const ${entity.camelCase()} = await find${entity.pascalCase()}ById(${entity.camelCase()}Id);
 
-  if (!${camelCase}) {
-    throw new NotFoundException(\`${pascalCase} with id \${${camelCase}Id} not found\`);
+  if (!${entity.camelCase()}) {
+    throw new NotFoundException(\`${entity.pascalCase()} with id \${${entity.camelCase()}Id} not found\`);
   }
 
-  const sanitized${pascalCase} = sanitized${pascalCase}Schema.parse(${camelCase});
+  const sanitized${entity.pascalCase()} = sanitized${entity.pascalCase()}Schema.parse(${entity.camelCase()});
 
-  return { success: true, ${camelCase}: sanitized${pascalCase} };
+  return { success: true, ${entity.camelCase()}: sanitized${entity.pascalCase()} };
 };
   `;
   return handler;

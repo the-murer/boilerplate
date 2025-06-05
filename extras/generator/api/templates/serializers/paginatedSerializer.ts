@@ -1,41 +1,38 @@
-import { BaseObject } from "@/generator/default";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateGetSerializer(obj: BaseObject) {
   const { entity, model } = obj;
-  const { pascalCase, camelCase, pluralCamel, pluralPascal } = entity;
 
   const serializer = `
 import { CommandHandler, DefaultResponse } from "@/types/commandHandler";
-
-import { ${pascalCase} } from "@/types/${camelCase}Types";
 import { parseZodError } from "@/utils/apiUtils";
 import { SortEnum, basePaginationResolver } from "@/utils/pagination";
 import { z } from "zod";
 
-const get${pluralPascal}Input = basePaginationResolver.extend({
-  ${Object.keys(model)
-    .map(
-      (field) => `
-    ${field}: z.${model[field]}().optional(),`
-    ).join("\n")}
+import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
+
+const get${entity.pluralPascal()}Input = basePaginationResolver.extend({
+  ${mapObjectFields(model, (key, value) => `${key}: z.${value}().optional(),`).join("\n")}
 });
 
 // === API HANDLERS ===
 
-export const validateGet${pluralPascal}Input = (data: Get${pluralPascal}Input) =>
-  parseZodError<Get${pluralPascal}Input>(get${pluralPascal}Input, data);
+export const validateGet${entity.pluralPascal()}Input = (data: Get${entity.pluralPascal()}Input) =>
+  parseZodError<Get${entity.pluralPascal()}Input>(get${entity.pluralPascal()}Input, data);
 
-export type Get${pluralPascal}Handler = CommandHandler<
-  Get${pluralPascal}Input,
-  Promise<Get${pluralPascal}Output>
+export type Get${entity.pluralPascal()}Handler = CommandHandler<
+  Get${entity.pluralPascal()}Input,
+  Promise<Get${entity.pluralPascal()}Output>
 >;
 
 // === EXPLICIT TYPES ===
 
-export type Get${pluralPascal}Input = z.infer<typeof get${pluralPascal}Input>;
+export type Get${entity.pluralPascal()}Input = z.infer<typeof get${entity.pluralPascal()}Input>;
 
-interface Get${pluralPascal}Output extends DefaultResponse {
-  ${pluralCamel}: Omit<${pascalCase}, "password">[];
-}`;
+interface Get${entity.pluralPascal()}Output extends DefaultResponse {
+  ${entity.camelCase}s: ${entity.pascalCase()}[];
+}
+`;
   return serializer;
 }

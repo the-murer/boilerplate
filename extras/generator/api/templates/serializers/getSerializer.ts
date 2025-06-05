@@ -1,40 +1,36 @@
-import { BaseObject } from "@/generator/default";
-
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateGetByIdSerializer(obj: BaseObject) {
-    const { entity, model } = obj;
-    const { pascalCase, camelCase } = entity;
-  
-    const serializer = `
+  const { entity } = obj;
+
+  const serializer = `
     import { CommandHandler, DefaultResponse } from "@/types/commandHandler";
+    import { parseZodError } from "@/utils/apiUtils";
+    import { z } from "zod";
   
-  import { ${pascalCase} } from "@/types/${camelCase}Types";
-  import { parseZodError } from "@/utils/apiUtils";
-  import { z } from "zod";
+  import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
   
-  const get${pascalCase}ByIdInput = z.object({
-    ${camelCase}Id: z.string({ required_error: \`Id do \${pascalCase} é obrigatório\` }),
+  const get${entity.pascalCase()}ByIdInput = z.object({
+    ${entity.camelCase()}Id: z.string({ required_error: \`Id do \${entity.pascalCase()} é obrigatório\` }),
   });
   
   // === API HANDLERS ===
   
-  export const validateGet${pascalCase}ByIdInput = (data: Get${pascalCase}ByIdInput) =>
-    parseZodError<Get${pascalCase}ByIdInput>(get${pascalCase}ByIdInput, data);
+  export const validateGet${entity.pascalCase()}ByIdInput = (data: Get${entity.pascalCase()}ByIdInput) =>
+    parseZodError<Get${entity.pascalCase()}ByIdInput>(get${entity.pascalCase()}ByIdInput, data);
   
-  export type Get${pascalCase}ByIdHandler = CommandHandler<
-    Get${pascalCase}ByIdInput,
-    Promise<Get${pascalCase}ByIdOutput>
+  export type Get${entity.pascalCase()}ByIdHandler = CommandHandler<
+    Get${entity.pascalCase()}ByIdInput,
+    Promise<Get${entity.pascalCase()}ByIdOutput>
   >;
   
   // === EXPLICIT TYPES ===
   
-  type Get${pascalCase}ByIdInput = z.infer<typeof get${pascalCase}ByIdInput>;
+  type Get${entity.pascalCase()}ByIdInput = z.infer<typeof get${entity.pascalCase()}ByIdInput>;
   
-  interface Get${pascalCase}ByIdOutput extends DefaultResponse {
-    ${camelCase}: Omit<${pascalCase}, "password">;
+  interface Get${entity.pascalCase()}ByIdOutput extends DefaultResponse {
+    ${entity.camelCase()}: Omit<${entity.pascalCase()}, "password">;
   }
-  
-    `;
-    return serializer;
-  }
-  
+`;
+  return serializer;
+}

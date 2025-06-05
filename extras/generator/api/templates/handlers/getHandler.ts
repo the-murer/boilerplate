@@ -1,14 +1,16 @@
-import { BaseObject } from "@/generator/default";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 
 export function generateGetHandler(obj: BaseObject) {
-  const { entity, path, model } = obj;
+  const { entity, model } = obj;
   const { pascalCase, camelCase } = entity;
 
   const handler = `
+  import { PaginationType, SortEnum } from "@/utils/pagination";
+  import dbConnect from "@/database/dbConnect";
+
 import { Get${pascalCase}sHandler as Handler } from "@/api/${camelCase}/serializers/get${pascalCase}sSerializer";
-import { PaginationType, SortEnum } from "@/utils/pagination";
-import dbConnect from "@/database/dbConnect";
 import { find${pascalCase}sWithPagination } from "@/database/repository/${camelCase}Repository";
 import { ${camelCase}Schema } from "@/types/${camelCase}Types";
 
@@ -19,8 +21,7 @@ export const get${pascalCase}sHandler: Handler = async ({
   limit,
   sortField,
   sortOrder,
-  name,
-  email,
+  ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
 }) => {
   await dbConnect();
 
@@ -29,8 +30,7 @@ export const get${pascalCase}sHandler: Handler = async ({
     limit,
     sortField: sortField || "createdAt",
     sortOrder: sortOrder || SortEnum.DESC,
-    name,
-    email,
+    ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
   });
 
   const data = ${camelCase}s.map((${camelCase}) => sanitized${pascalCase}Schema.parse(${camelCase}));

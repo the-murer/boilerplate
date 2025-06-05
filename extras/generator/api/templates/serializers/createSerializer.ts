@@ -1,41 +1,38 @@
-import { BaseObject } from "@/generator/default";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateCreateSerializer(obj: BaseObject) {
   const { entity, model } = obj;
-  const { pascalCase, camelCase } = entity;
 
   const serializer = `
 import { CommandHandler, DefaultResponse } from "@/types/commandHandler";
-
-import { ${pascalCase} } from "@/types/${camelCase}Types";
 import { parseZodError } from "@/utils/apiUtils";
 import { z } from "zod";
 
-export const create${pascalCase}Resolver = z.object({
-  ${Object.keys(model)
-    .map(
-      (field) => `
-    ${field}: z.${model[field]}(),`
-    )
-    .join("\n")}
+import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
+
+export const create${entity.pascalCase()}Resolver = z.object({
+  ${mapObjectFields(model, (key, value) => `${key}: z.${value}(),`).join(
+    "\n  "
+  )}
 });
 
 // === API HANDLERS ===
 
-export const validateCreate${pascalCase}Input = (data: Create${pascalCase}Input) =>
-  parseZodError<Create${pascalCase}Input>(create${pascalCase}Resolver, data);
+export const validateCreate${entity.pascalCase()}Input = (data: Create${entity.pascalCase()}Input) =>
+  parseZodError<Create${entity.pascalCase()}Input>(create${entity.pascalCase()}Resolver, data);
 
-export type Create${pascalCase}Handler = CommandHandler<
-  Create${pascalCase}Input,
-  Promise<Create${pascalCase}Output>
+export type Create${entity.pascalCase()}Handler = CommandHandler<
+  Create${entity.pascalCase()}Input,
+  Promise<Create${entity.pascalCase()}Output>
 >;
 
 // === EXPLICIT TYPES ===
 
-export type Create${pascalCase}Input = z.infer<typeof create${pascalCase}Resolver>;
+export type Create${entity.pascalCase()}Input = z.infer<typeof create${entity.pascalCase()}Resolver>;
 
-interface Create${pascalCase}Output extends DefaultResponse {
-  ${camelCase}: ${pascalCase};
+interface Create${entity.pascalCase()}Output extends DefaultResponse {
+  ${entity.camelCase()}: ${entity.pascalCase()};
 }
 `;
   return serializer;

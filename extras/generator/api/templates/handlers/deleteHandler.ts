@@ -1,26 +1,23 @@
-import { BaseObject } from "@/generator/default";
-
-
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateDeleteHandler(obj: BaseObject) {
-  const { entity, path, model } = obj;
-  const { pascalCase, camelCase } = entity;
+  const { entity } = obj;
 
   const handler = `
-import { Delete${pascalCase}ByIdHandler as Handler } from "@/api/${camelCase}/serializers/delete${pascalCase}ByIdSerializer";
+import { Delete${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}ByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
-import { delete${pascalCase}ById } from "@/database/repository/${camelCase}Repository";
+import { delete${entity.pascalCase()}ById } from "@/database/repository/${entity.camelCase()}Repository";
 
-export const delete${pascalCase}ByIdHandler: Handler = async ({ ${camelCase}Id }) => {
+export const delete${entity.pascalCase()}ByIdHandler: Handler = async ({ ${entity.camelCase()}Id }) => {
   await dbConnect();
-  const ${camelCase} = await delete${pascalCase}ById(${camelCase}Id);
+  const ${entity.camelCase()} = await delete${entity.pascalCase()}ById(${entity.camelCase()}Id);
 
-  if (!${camelCase}) {
-    throw new NotFoundException(\`${pascalCase} with id \${${camelCase}Id} not found\`);
+  if (!${entity.camelCase()}) {
+    throw new NotFoundException(\`${entity.pascalCase()} with id \${${entity.camelCase()}Id} not found\`);
   }
 
-  return { success: true, ${camelCase} };
+  return { success: true, ${entity.camelCase()} };
 };
   `;
   return handler;

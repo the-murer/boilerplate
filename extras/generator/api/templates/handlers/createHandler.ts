@@ -1,31 +1,25 @@
-import { BaseObject } from "@/generator/default";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateCreateHandler(obj: BaseObject) {
-  const { entity, path, model } = obj;
-  const { pascalCase, camelCase } = entity;
+  const { entity, model } = obj;
 
   const handler = `
-import { Create${pascalCase}Handler as Handler } from "@/api/${camelCase}/serializers/create${pascalCase}Serializer";
-import { ${pascalCase} } from "@/types/${camelCase}Types";
 import dbConnect from "@/database/dbConnect";
-import { create${pascalCase} } from "@/database/repository/${camelCase}Repository";
-import { hash } from "bcrypt";
+import { Create${entity.pascalCase()}Handler as Handler } from "@/api/${entity.camelCase()}/serializers/create${entity.pascalCase()}Serializer";
+import { ${entity.camelCase()} } from "@/types/${entity.camelCase()}Types";
+import { create${entity.pascalCase()} } from "@/database/repository/${entity.camelCase()}Repository"; 
 
-export const create${pascalCase}Handler: Handler = async ({ name, email, password }) => {
+export const create${entity.pascalCase()}Handler: Handler = async ({
+  ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
+}) => {
   await dbConnect();
-
-  const hashedPassword = await hash(password, 10);
-
-  const ${camelCase} = await create${pascalCase}({
-    name,
-    email,
-    password: hashedPassword,
+ 
+  const ${entity.camelCase()} = await create${entity.pascalCase()}({
+    ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
   });
 
-
-  const { password: _, ...${camelCase}WithoutPassword } = ${camelCase};
-
-  return { success: true, ${camelCase}: ${camelCase}WithoutPassword };
+  return { success: true, ${entity.camelCase()} };
 };
   `;
   return handler;

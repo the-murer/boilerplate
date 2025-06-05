@@ -1,38 +1,35 @@
-import { BaseObject } from "@/generator/default";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 
 export function generateUpdateHandler(obj: BaseObject) {
-  const { entity, path, model } = obj;
-  const { pascalCase, camelCase } = entity;
+  const { entity, model } = obj;
 
   const handler = `
-import { Update${pascalCase}ByIdHandler as Handler } from "@/api/${camelCase}/serializers/update${pascalCase}ByIdSerializer";
 import dbConnect from "@/database/dbConnect";
-import {
-  find${pascalCase}ById,
-  update${pascalCase}ById,
-} from "@/database/repository/${camelCase}Repository";
 import { NotFoundException } from "@/utils/errorUtils";
-import { hash } from "bcrypt";
+import { Update${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/update${entity.pascalCase()}ByIdSerializer";
+import {
+  find${entity.pascalCase()}ById,
+  update${entity.pascalCase()}ById,
+} from "@/database/repository/${entity.camelCase()}Repository";
 
-export const update${pascalCase}ByIdHandler: Handler = async ({
-  ${camelCase}Id,
+export const update${entity.pascalCase()}ByIdHandler: Handler = async ({
+  ${entity.camelCase()}Id,
   name,
   email,
   password,
 }) => {
   await dbConnect();
-  const ${camelCase} = await find${pascalCase}ById(${camelCase}Id);
+  const ${entity.camelCase()} = await find${entity.pascalCase()}ById(${entity.camelCase()}Id);
 
-  if (!${camelCase}) throw new NotFoundException(\`Usuário não \${${camelCase}Id} encontrado\`);
+  if (!${entity.camelCase()}) throw new NotFoundException(\`Usuário não \${${entity.camelCase()}Id} encontrado\`);
 
-  if (password) ${camelCase}.password = await hash(password, 10);
-  if (name) ${camelCase}.name = name;
-  if (email) ${camelCase}.email = email;
+  ${mapObjectFields(model, (key) => `if (${key}) ${entity.camelCase()}.${key} = ${key};`).join("\n  ")}
 
-  const updated${pascalCase} = await update${pascalCase}ById(${camelCase}Id, ${camelCase});
+  const updated${entity.pascalCase()} = await update${entity.pascalCase()}ById(${entity.camelCase()}Id, ${entity.camelCase()});
 
-  return { success: true, ${camelCase}: updated${pascalCase} };
+  return { success: true, ${entity.camelCase()}: updated${entity.pascalCase()} };
 };
   `;
   return handler;

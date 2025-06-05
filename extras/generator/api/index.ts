@@ -1,5 +1,5 @@
 import fs from "fs";
-import { BaseObject } from "..";
+import { BaseObject } from "@/types/generatorTypes";
 import { generateCreateSerializer } from "./templates/serializers/createSerializer";
 import { generateUpdateSerializer } from "./templates/serializers/updateSerializer";
 import { generateDeleteSerializer } from "./templates/serializers/deleteSerializer";
