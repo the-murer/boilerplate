@@ -1,4 +1,3 @@
-import { BaseObject } from "..";
 import { writeFile } from "../utils";
 import { generateMainPageFile } from "./client/genMainPage";
 import { generateRecordPage } from "./client/genRecordPage";
@@ -12,12 +11,13 @@ import { generateGetManyHook } from "./hooks/genGetManyEntity";
 import { generateCreateHook } from "./hooks/genCreateEntity";
 import { generateUpdateHook } from "./hooks/genUpdateEntity";
 import { generateDeleteHook } from "./hooks/genDeleteEntity";
+import { BaseObject } from "@/types/generatorTypes";
 
 function generateInterfaces(obj: BaseObject) {
   const { entity } = obj;
 
-  writeFile(generateRecordPage(obj), `app/${entity}/[id]/page.tsx`);
-  writeFile(generateMainPageFile(obj), `app/${entity}/page.tsx`);
+  writeFile(generateRecordPage(obj), `app/${entity.kebabCase()}/[id]/page.tsx`);
+  writeFile(generateMainPageFile(obj), `app/${entity.kebabCase()}/page.tsx`);
 }
 
 function generateComponents(obj: BaseObject) {
@@ -25,23 +25,23 @@ function generateComponents(obj: BaseObject) {
 
   writeFile(
     generateCreateModal(obj),
-    `app/${entity}/components/create${entity.pascalCase()}Modal.tsx`
+    `modules/${entity.camelCase()}/components/create${entity.pascalCase()}Modal.tsx`
   );
   writeFile(
     generateUpdateModal(obj),
-    `app/${entity}/components/update${entity.pascalCase()}Modal.tsx`
+    `modules/${entity.camelCase()}/components/update${entity.pascalCase()}Modal.tsx`
   );
   writeFile(
     generateDeleteModal(obj),
-    `app/${entity}/components/delete${entity.pascalCase()}Modal.tsx`
+    `modules/${entity.camelCase()}/components/delete${entity.pascalCase()}Modal.tsx`
   );
   writeFile(
     generateEntityForm(obj),
-    `app/${entity}/components/${entity.camelCase()}Form.tsx`
+    `modules/${entity.camelCase()}/components/${entity.camelCase()}Form.tsx`
   );
   writeFile(
     generateListFilters(obj),
-    `app/${entity}/components/${entity.camelCase()}Filters.tsx`
+    `modules/${entity.camelCase()}/components/${entity.camelCase()}Filters.tsx`
   );
 }
 
@@ -50,23 +50,23 @@ function generateHooks(obj: BaseObject) {
 
   writeFile(
     generateGetHook(obj),
-    `app/${entity}/hooks/useGet${entity.pascalCase()}.ts`
+    `modules/${entity.camelCase()}/hooks/useGet${entity.pascalCase()}.ts`
   );
   writeFile(
     generateGetManyHook(obj),
-    `app/${entity}/hooks/useGet${entity.pluralPascal()}.ts`
+    `modules/${entity.camelCase()}/hooks/useGet${entity.pluralPascal()}.ts`
   );
   writeFile(
     generateCreateHook(obj),
-    `app/${entity}/hooks/useCreate${entity.pascalCase()}.ts`
+    `modules/${entity.camelCase()}/hooks/useCreate${entity.pascalCase()}.ts`
   );
   writeFile(
     generateUpdateHook(obj),
-    `app/${entity}/hooks/useUpdate${entity.pascalCase()}.ts`
+    `modules/${entity.camelCase()}/hooks/useUpdate${entity.pascalCase()}.ts`
   );
   writeFile(
     generateDeleteHook(obj),
-    `app/${entity}/hooks/useDelete${entity.pascalCase()}.ts`
+    `modules/${entity.camelCase()}/hooks/useDelete${entity.pascalCase()}.ts`
   );
 }
 

@@ -21,8 +21,8 @@ export const basePaginationResolver = z.object({
   sortOrder: z.nativeEnum(SortEnum).optional().nullable(),
 });
 
-export type PaginatedResult = {
-  users: User[];
+export type PaginatedResult<T> = {
+  items: T[];
   metadata: {
     totalPages: number;
     currentPage: number;

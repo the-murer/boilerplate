@@ -6,7 +6,7 @@ export function generateRepository({ entity, model }: BaseObject) {
 import { PaginatedResult, PaginationType } from "@/utils/pagination";
 
 import ${entity.pascalCase()} from "@/database/models/${entity.pascalCase()}";
-import { ${entity.pascalCase()} as ${entity.pascalCase()}Type } from "@/types/${entity.pascalCase()}Types";
+import { ${entity.pascalCase()} as ${entity.pascalCase()}Type } from "@/types/${entity.camelCase()}Types";
 
 export type ${entity.pascalCase()}Filters = {
   ${mapObjectFields(model, (key, value) => `${key}: ${value}`)
@@ -18,9 +18,9 @@ export async function find${entity.pascalCase()}WithPagination({
   limit,
   sortField,
   sortOrder,
-  ${mapObjectFields(model, (key, value) => `${key}: ${value}`)
-    .join(",\n  ")}
-}: PaginationType & ${entity.pascalCase()}Filters): Promise<PaginatedResult> {
+  ${mapObjectFields(model, (key) => `${key},`)
+    .join("\n  ")}
+}: PaginationType & ${entity.pascalCase()}Filters): Promise<PaginatedResult<${entity.pascalCase()}Type>> {
   const query: any = {};
 
   ${mapObjectFields(model, (key, value) => `if (${key}) query.${key} = { $regex: ${key}, $options: "i" };`)
@@ -31,7 +31,7 @@ export async function find${entity.pascalCase()}WithPagination({
       .sort({ [sortField]: sortOrder })
       .limit(limit);
     return {
-      ${entity.pluralCamel()},
+      items: ${entity.pluralCamel()},
       metadata: {
         totalPages: 1,
         currentPage: 1,
@@ -50,7 +50,7 @@ export async function find${entity.pascalCase()}WithPagination({
     .limit(limit)) as ${entity.pascalCase()}Type[];
 
   return {
-    ${entity.pluralCamel()},
+    items: ${entity.pluralCamel()},
     metadata: {
       hasNextPage: page < totalPages,
       hasPreviousPage: page > 1,

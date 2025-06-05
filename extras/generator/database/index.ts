@@ -4,6 +4,12 @@ import { generateRepository } from "./genRepository";
 import { generateSchema } from "./genSchema";
 
 export function generateDatabase(obj: BaseObject) {
-  writeFile(generateSchema(obj), `types/${obj.entity.camelCase()}Types.ts`);
-  writeFile(generateRepository(obj), `types/${obj.entity.camelCase()}Types.ts`);
+  writeFile(
+    generateSchema(obj),
+    `database/models/${obj.entity.pascalCase()}.ts`
+  );
+  writeFile(
+    generateRepository(obj),
+    `database/repository/${obj.entity.camelCase()}Repository.ts`
+  );
 }

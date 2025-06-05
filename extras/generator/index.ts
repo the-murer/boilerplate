@@ -1,6 +1,6 @@
 import { generatePages } from "./page";
 import { generateExtras } from "./extras";
-import { generateDatabase } from "./database/generateDatabase";
+import { generateDatabase } from "./database";
 import { GeneratorBaseObject } from "@/types/generatorTypes";
 import {
   askBooleanOption,
@@ -30,16 +30,16 @@ function generateFiles(baseObject: GeneratorBaseObject) {
   }
 
   if (initPage) {
-    // generatePages(baseObject);
+    generatePages(baseObject);
     console.log("Gerando Página...");
   }
 
   if (initDatabase) {
-    // generateDatabase(baseObject);
+    generateDatabase(baseObject);
     console.log("Gerando Banco de Dados...");
   }
 
-  // generateExtras(baseObject);
+  generateExtras(baseObject);
   console.log("Gerando Extras...");
 }
 
