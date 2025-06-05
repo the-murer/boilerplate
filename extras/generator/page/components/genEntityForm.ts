@@ -1,4 +1,4 @@
-import { BaseObject } from "../..";
+import { BaseObject } from "@/types/generatorTypes";
 import { mapObjectFields } from "../../utils";
 
 export function generateEntityForm({ entity, model }: BaseObject) {

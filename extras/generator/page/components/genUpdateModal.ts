@@ -1,4 +1,4 @@
-import { BaseObject } from "../..";
+import { BaseObject } from "@/types/generatorTypes";
 import { mapObjectFields } from "../../utils";
 
 export function generateUpdateModal({ entity, model }: BaseObject) {

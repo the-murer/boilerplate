@@ -1,17 +1,17 @@
-import { BaseObject } from ".";
-import { writeFile } from "./utils";
-import { generateMainPageFile } from "./page/client/genMainPage";
-import { generateRecordPage } from "./page/client/genRecordPage";
-import { generateCreateModal } from "./page/components/genCreateModal";
-import { generateUpdateModal } from "./page/components/genUpdateModal";
-import { generateDeleteModal } from "./page/components/genDeleteModal";
-import { generateEntityForm } from "./page/components/genEntityForm";
-import { generateListFilters } from "./page/components/genListFilters";
-import { generateGetHook } from "./page/hooks/genGetEntity";
-import { generateGetManyHook } from "./page/hooks/genGetManyEntity";
-import { generateCreateHook } from "./page/hooks/genCreateEntity";
-import { generateUpdateHook } from "./page/hooks/genUpdateEntity";
-import { generateDeleteHook } from "./page/hooks/genDeleteEntity";
+import { BaseObject } from "..";
+import { writeFile } from "../utils";
+import { generateMainPageFile } from "./client/genMainPage";
+import { generateRecordPage } from "./client/genRecordPage";
+import { generateCreateModal } from "./components/genCreateModal";
+import { generateUpdateModal } from "./components/genUpdateModal";
+import { generateDeleteModal } from "./components/genDeleteModal";
+import { generateEntityForm } from "./components/genEntityForm";
+import { generateListFilters } from "./components/genListFilters";
+import { generateGetHook } from "./hooks/genGetEntity";
+import { generateGetManyHook } from "./hooks/genGetManyEntity";
+import { generateCreateHook } from "./hooks/genCreateEntity";
+import { generateUpdateHook } from "./hooks/genUpdateEntity";
+import { generateDeleteHook } from "./hooks/genDeleteEntity";
 
 function generateInterfaces(obj: BaseObject) {
   const { entity } = obj;

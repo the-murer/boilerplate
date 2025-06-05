@@ -1,4 +1,4 @@
-import { BaseObject } from "../..";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateUpdateHook(obj: BaseObject) {
   const { entity } = obj;

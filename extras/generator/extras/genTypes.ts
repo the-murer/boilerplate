@@ -1,5 +1,5 @@
-import { BaseObject } from "..";
-import { mapObjectFields } from "../utils";
+import { mapObjectFields } from "@/extras/generator/utils";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateTypesFile({ entity, model }: BaseObject) {
   const page = `

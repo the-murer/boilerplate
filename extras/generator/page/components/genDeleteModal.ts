@@ -1,4 +1,4 @@
-import { BaseObject } from "../..";
+import { BaseObject } from "@/types/generatorTypes";
 
 export function generateDeleteModal({ entity, model }: BaseObject) {
   const page = `
