@@ -1,7 +1,7 @@
 import { BaseObject } from "@/types/generatorTypes";
 
-export function generateIdFile(obj: BaseObject) {
-  const { entity, model } = obj;
+export function generateParamRoute(obj: BaseObject) {
+  const { entity } = obj;
 
   const route = `
  import { RequestHeaders } from "@/types/commandHandler";

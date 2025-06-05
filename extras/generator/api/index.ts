@@ -1,24 +1,24 @@
 import fs from "fs";
 import { BaseObject } from "@/types/generatorTypes";
-import { generateCreateSerializer } from "./templates/serializers/createSerializer";
-import { generateUpdateSerializer } from "./templates/serializers/updateSerializer";
-import { generateDeleteSerializer } from "./templates/serializers/deleteSerializer";
-import { generateGetSerializer } from "./templates/serializers/paginatedSerializer";
-import { generateGetByIdSerializer } from "./templates/serializers/getSerializer";
-import { generateCreateHandler } from "./templates/handlers/createHandler";
-import { generateUpdateHandler } from "./templates/handlers/updateHandler";
-import { generateDeleteHandler } from "./templates/handlers/deleteHandler";
-import { generateGetByIdHandler } from "./templates/handlers/paginatedHandler";
-import { generateGetHandler } from "./templates/handlers/getHandler";
-import { generateIdFile } from "./templates/routes/idRoute";
-import { generateInitialFile } from "./templates/routes/initialRoute";
+import { generateCreateSerializer } from "./templates/serializers/genCreateSerializer";
+import { generateUpdateSerializer } from "./templates/serializers/genUpdateSerializer";
+import { generateDeleteSerializer } from "./templates/serializers/genDeleteSerializer";
+import { generateGetSerializer } from "./templates/serializers/genGetPaginatedSerializer";
+import { generateGetByIdSerializer } from "./templates/serializers/genGetByIdSerializer";
+import { generateCreateHandler } from "./templates/handlers/genCreateHandler";
+import { generateUpdateHandler } from "./templates/handlers/genUpdateHandler";
+import { generateDeleteHandler } from "./templates/handlers/genDeleteHandler";
+import { generateGetByIdHandler } from "./templates/handlers/genGetByIdHandler";
+import { generateGetPaginatedHandler } from "./templates/handlers/genGetPaginatedHandler";
+import { generateParamRoute } from "./templates/routes/genParamRoute";
+import { generateMainRoute } from "./templates/routes/genMainRoute";
 import { writeFile } from "../utils";
 
 function generateApiRoutes(obj: BaseObject) {
   const { entity } = obj;
 
-  writeFile(generateInitialFile(obj), `app/api/${entity.kebabCase()}/route.ts`);
-  writeFile(generateIdFile(obj), `app/api/${entity.kebabCase()}/[id]/route.ts`);
+  writeFile(generateMainRoute(obj), `app/api/${entity.kebabCase()}/route.ts`);
+  writeFile(generateParamRoute(obj), `app/api/${entity.kebabCase()}/[id]/route.ts`);
 }
 
 function generateApiSerializers(obj: BaseObject) {
@@ -30,11 +30,11 @@ function generateApiSerializers(obj: BaseObject) {
   );
   writeFile(
     generateUpdateSerializer(obj),
-    `api/${entity.camelCase()}/serializers/update${entity.pascalCase()}Serializer.ts`
+    `api/${entity.camelCase()}/serializers/update${entity.pascalCase()}ByIdSerializer.ts`
   );
   writeFile(
     generateDeleteSerializer(obj),
-    `api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}Serializer.ts`
+    `api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}ByIdSerializer.ts`
   );
   writeFile(
     generateGetSerializer(obj),
@@ -55,14 +55,14 @@ function generateApiHandlers(obj: BaseObject) {
   );
   writeFile(
     generateUpdateHandler(obj),
-    `api/${entity.camelCase()}/handlers/update${entity.pascalCase()}Handler.ts`
+    `api/${entity.camelCase()}/handlers/update${entity.pascalCase()}ByIdHandler.ts`
   );
   writeFile(
     generateDeleteHandler(obj),
-    `api/${entity.camelCase()}/handlers/delete${entity.pascalCase()}Handler.ts`
+    `api/${entity.camelCase()}/handlers/delete${entity.pascalCase()}ByIdHandler.ts`
   );
   writeFile(
-    generateGetHandler(obj),
+    generateGetPaginatedHandler(obj),
     `api/${entity.camelCase()}/handlers/get${entity.pascalCase()}Handler.ts`
   );
   writeFile(

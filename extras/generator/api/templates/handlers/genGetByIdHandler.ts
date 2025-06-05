@@ -1,17 +1,16 @@
 import { BaseObject } from "@/types/generatorTypes";
 
-
 export function generateGetByIdHandler(obj: BaseObject) {
   const { entity } = obj;
 
   const handler = `
-import { Get${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/get${entity.pascalCase()}ByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
+
+import { Get${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/get${entity.pascalCase()}ByIdSerializer";
 import { find${entity.pascalCase()}ById } from "@/database/repository/${entity.camelCase()}Repository";
 import { ${entity.camelCase()}Schema } from "@/types/${entity.camelCase()}Types";
 
-const sanitized${entity.pascalCase()}Schema = ${entity.camelCase()}Schema.omit({ password: true });
 
 export const get${entity.pascalCase()}ByIdHandler: Handler = async ({ ${entity.camelCase()}Id }) => {
   await dbConnect();
@@ -21,9 +20,7 @@ export const get${entity.pascalCase()}ByIdHandler: Handler = async ({ ${entity.c
     throw new NotFoundException(\`${entity.pascalCase()} with id \${${entity.camelCase()}Id} not found\`);
   }
 
-  const sanitized${entity.pascalCase()} = sanitized${entity.pascalCase()}Schema.parse(${entity.camelCase()});
-
-  return { success: true, ${entity.camelCase()}: sanitized${entity.pascalCase()} };
+  return { success: true, ${entity.camelCase()} };
 };
   `;
   return handler;

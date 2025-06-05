@@ -1,6 +1,7 @@
 import { generatePages } from "./page";
 import { generateExtras } from "./extras";
 import { generateDatabase } from "./database";
+import { generateApi } from "./api";
 import { GeneratorBaseObject } from "@/types/generatorTypes";
 import {
   askBooleanOption,
@@ -25,7 +26,7 @@ function generateFiles(baseObject: GeneratorBaseObject) {
   const { initApi, initPage, initDatabase } = baseObject;
 
   if (initApi) {
-    // generateApi(baseObject);
+    generateApi(baseObject);
     console.log("Gerando API...");
   }
 

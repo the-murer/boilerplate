@@ -16,9 +16,7 @@ import {
 
 export const update${entity.pascalCase()}ByIdHandler: Handler = async ({
   ${entity.camelCase()}Id,
-  name,
-  email,
-  password,
+  ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
 }) => {
   await dbConnect();
   const ${entity.camelCase()} = await find${entity.pascalCase()}ById(${entity.camelCase()}Id);
