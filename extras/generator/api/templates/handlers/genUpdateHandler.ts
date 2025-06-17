@@ -8,13 +8,13 @@ export function generateUpdateHandler(obj: BaseObject) {
   const handler = `
 import dbConnect from "@/database/dbConnect";
 import { NotFoundException } from "@/utils/errorUtils";
-import { Update${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/update${entity.pascalCase()}ByIdSerializer";
 import {
   find${entity.pascalCase()}ById,
   update${entity.pascalCase()}ById,
 } from "@/database/repository/${entity.camelCase()}Repository";
+import { ${entity.pascalCase()}OperationsHandlers } from "@/types/${entity.camelCase()}Types";
 
-export const update${entity.pascalCase()}ByIdHandler: Handler = async ({
+export const update${entity.pascalCase()}ByIdHandler: ${entity.pascalCase()}OperationsHandlers["update"] = async ({
   ${entity.camelCase()}Id,
   ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
 }) => {

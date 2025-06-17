@@ -9,12 +9,11 @@ export function generateGetPaginatedHandler(obj: BaseObject) {
   import { PaginationType, SortEnum } from "@/utils/pagination";
   import dbConnect from "@/database/dbConnect";
 
-import { Get${entity.pluralPascal()}PaginatedHandler as Handler } from "@/api/${entity.camelCase()}/serializers/get${entity.pascalCase()}sSerializer";
 import { find${entity.pluralPascal()}WithPagination } from "@/database/repository/${entity.camelCase()}Repository";
-import { ${entity.camelCase()}Schema } from "@/types/${entity.camelCase()}Types";
+import { ${entity.pascalCase()}OperationsHandlers } from "@/types/${entity.camelCase()}Types";
 
 
-export const get${entity.pluralPascal()}PaginatedHandler: Handler = async ({
+export const get${entity.pluralPascal()}PaginatedHandler: ${entity.pascalCase()}OperationsHandlers["getPaginated"] = async ({
   page,
   limit,
   sortField,
@@ -31,7 +30,7 @@ export const get${entity.pluralPascal()}PaginatedHandler: Handler = async ({
     ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
   });
 
-  return { success: true, ${entity.pluralCamel()}, metadata };
+  return { success: true, items: ${entity.pluralCamel()}, metadata };
 };
 
   `;

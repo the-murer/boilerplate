@@ -28,10 +28,10 @@ export const parseZodError = <T>(schema: ZodSchema, data: T) => {
 
 export const apiHandler = async (
   data: any,
-  validationFunction: ValidationFunction,
+  schema: ZodSchema,
   handlerFunction: CommandHandler<any, any>
 ) => {
-  const { errors, success } = validationFunction(data);
+  const { errors, success } = parseZodError(schema, data);
   if (success === false) {
     return NextResponse.json(
       {

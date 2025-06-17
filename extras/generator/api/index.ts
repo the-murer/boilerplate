@@ -1,10 +1,5 @@
 import fs from "fs";
 import { BaseObject } from "@/types/generatorTypes";
-import { generateCreateSerializer } from "./templates/serializers/genCreateSerializer";
-import { generateUpdateSerializer } from "./templates/serializers/genUpdateSerializer";
-import { generateDeleteSerializer } from "./templates/serializers/genDeleteSerializer";
-import { generateGetPaginatedSerializer } from "./templates/serializers/genGetPaginatedSerializer";
-import { generateGetByIdSerializer } from "./templates/serializers/genGetByIdSerializer";
 import { generateCreateHandler } from "./templates/handlers/genCreateHandler";
 import { generateUpdateHandler } from "./templates/handlers/genUpdateHandler";
 import { generateDeleteHandler } from "./templates/handlers/genDeleteHandler";
@@ -18,31 +13,9 @@ function generateApiRoutes(obj: BaseObject) {
   const { entity } = obj;
 
   writeFile(generateMainRoute(obj), `app/api/${entity.kebabCase()}/route.ts`);
-  writeFile(generateParamRoute(obj), `app/api/${entity.kebabCase()}/[id]/route.ts`);
-}
-
-function generateApiSerializers(obj: BaseObject) {
-  const { entity } = obj;
-
   writeFile(
-    generateCreateSerializer(obj),
-    `api/${entity.camelCase()}/serializers/create${entity.pascalCase()}Serializer.ts`
-  );
-  writeFile(
-    generateUpdateSerializer(obj),
-    `api/${entity.camelCase()}/serializers/update${entity.pascalCase()}ByIdSerializer.ts`
-  );
-  writeFile(
-    generateDeleteSerializer(obj),
-    `api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}ByIdSerializer.ts`
-  );
-  writeFile(
-    generateGetPaginatedSerializer(obj),
-    `api/${entity.camelCase()}/serializers/get${entity.pluralPascal()}PaginatedSerializer.ts`
-  );
-  writeFile(
-    generateGetByIdSerializer(obj),
-    `api/${entity.camelCase()}/serializers/get${entity.pascalCase()}ByIdSerializer.ts`
+    generateParamRoute(obj),
+    `app/api/${entity.kebabCase()}/[id]/route.ts`
   );
 }
 
@@ -73,6 +46,5 @@ function generateApiHandlers(obj: BaseObject) {
 
 export function generateApi(obj: BaseObject) {
   generateApiRoutes(obj);
-  generateApiSerializers(obj);
   generateApiHandlers(obj);
 }

@@ -35,11 +35,15 @@ export const userBodySerializer = z.object({
     .min(8, "Senha deve ter pelo menos 8 caracteres"),
 });
 
-const userIdSerializer = z.object({
+export const userIdSerializer = z.object({
   userId: z.string({ required_error: "Id do usuário é obrigatório" }),
 });
 
-const userPaginatedSerializer = paginatedSerializer.merge(
+export const userUpdateSerializer = userIdSerializer.merge(
+  userBodySerializer.partial()
+);
+
+export const userPaginatedSerializer = paginatedSerializer.merge(
   userBodySerializer.omit({ password: true })
 );
 
@@ -47,7 +51,7 @@ const userPaginatedSerializer = paginatedSerializer.merge(
 
 export type UserInputs = {
   create: z.infer<typeof userBodySerializer>;
-  update: z.infer<typeof userIdSerializer & Partial<typeof userBodySerializer>>;
+  update: z.infer<typeof userUpdateSerializer>;
   delete: z.infer<typeof userIdSerializer>;
   getById: z.infer<typeof userIdSerializer>;
   getPaginated: z.infer<typeof userPaginatedSerializer>;
@@ -65,6 +69,10 @@ export type UserOperationsHandlers = {
   >;
   // ADITIONAL OPERATION HANDLERS
 };
+
+const UserOperationsValidation = {
+
+}
 
 // === EXTRAS ===
 export interface AuthUser extends User {}

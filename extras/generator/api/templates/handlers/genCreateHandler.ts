@@ -6,10 +6,10 @@ export function generateCreateHandler(obj: BaseObject) {
 
   const handler = `
 import dbConnect from "@/database/dbConnect";
-import { Create${entity.pascalCase()}Handler as Handler } from "@/api/${entity.camelCase()}/serializers/create${entity.pascalCase()}Serializer";
 import { create${entity.pascalCase()} } from "@/database/repository/${entity.camelCase()}Repository"; 
+import { ${entity.pascalCase()}OperationsHandlers } from "@/types/${entity.camelCase()}Types";
 
-export const create${entity.pascalCase()}Handler: Handler = async ({
+export const create${entity.pascalCase()}Handler: ${entity.pascalCase()}OperationsHandlers["create"] = async ({
   ${mapObjectFields(model, (key) => `${key},`).join("\n  ")}
 }) => {
   await dbConnect();

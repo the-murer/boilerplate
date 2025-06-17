@@ -4,12 +4,12 @@ export function generateDeleteHandler(obj: BaseObject) {
   const { entity } = obj;
 
   const handler = `
-import { Delete${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}ByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
 import { delete${entity.pascalCase()}ById } from "@/database/repository/${entity.camelCase()}Repository";
+import { ${entity.pascalCase()}OperationsHandlers } from "@/types/${entity.camelCase()}Types";
 
-export const delete${entity.pascalCase()}ByIdHandler: Handler = async ({ ${entity.camelCase()}Id }) => {
+export const delete${entity.pascalCase()}ByIdHandler: ${entity.pascalCase()}OperationsHandlers["delete"] = async ({ ${entity.camelCase()}Id }) => {
   await dbConnect();
   const ${entity.camelCase()} = await delete${entity.pascalCase()}ById(${entity.camelCase()}Id);
 
