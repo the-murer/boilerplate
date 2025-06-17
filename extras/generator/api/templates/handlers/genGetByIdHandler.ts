@@ -9,7 +9,6 @@ import dbConnect from "@/database/dbConnect";
 
 import { Get${entity.pascalCase()}ByIdHandler as Handler } from "@/api/${entity.camelCase()}/serializers/get${entity.pascalCase()}ByIdSerializer";
 import { find${entity.pascalCase()}ById } from "@/database/repository/${entity.camelCase()}Repository";
-import { ${entity.camelCase()}Schema } from "@/types/${entity.camelCase()}Types";
 
 
 export const get${entity.pascalCase()}ByIdHandler: Handler = async ({ ${entity.camelCase()}Id }) => {

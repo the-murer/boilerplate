@@ -3,7 +3,7 @@ import { BaseObject } from "@/types/generatorTypes";
 import { generateCreateSerializer } from "./templates/serializers/genCreateSerializer";
 import { generateUpdateSerializer } from "./templates/serializers/genUpdateSerializer";
 import { generateDeleteSerializer } from "./templates/serializers/genDeleteSerializer";
-import { generateGetSerializer } from "./templates/serializers/genGetPaginatedSerializer";
+import { generateGetPaginatedSerializer } from "./templates/serializers/genGetPaginatedSerializer";
 import { generateGetByIdSerializer } from "./templates/serializers/genGetByIdSerializer";
 import { generateCreateHandler } from "./templates/handlers/genCreateHandler";
 import { generateUpdateHandler } from "./templates/handlers/genUpdateHandler";
@@ -37,8 +37,8 @@ function generateApiSerializers(obj: BaseObject) {
     `api/${entity.camelCase()}/serializers/delete${entity.pascalCase()}ByIdSerializer.ts`
   );
   writeFile(
-    generateGetSerializer(obj),
-    `api/${entity.camelCase()}/serializers/get${entity.pascalCase()}Serializer.ts`
+    generateGetPaginatedSerializer(obj),
+    `api/${entity.camelCase()}/serializers/get${entity.pluralPascal()}PaginatedSerializer.ts`
   );
   writeFile(
     generateGetByIdSerializer(obj),
@@ -63,7 +63,7 @@ function generateApiHandlers(obj: BaseObject) {
   );
   writeFile(
     generateGetPaginatedHandler(obj),
-    `api/${entity.camelCase()}/handlers/get${entity.pascalCase()}Handler.ts`
+    `api/${entity.camelCase()}/handlers/get${entity.pluralPascal()}PaginatedHandler.ts`
   );
   writeFile(
     generateGetByIdHandler(obj),

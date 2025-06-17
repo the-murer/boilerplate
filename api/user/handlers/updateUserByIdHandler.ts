@@ -1,13 +1,13 @@
-import { UpdateUserByIdHandler as Handler } from "@/api/user/serializers/updateUserByIdSerializer";
 import dbConnect from "@/database/dbConnect";
 import {
   findUserById,
   updateUserById,
 } from "@/database/repository/userRepository";
+import { UserOperationsHandlers } from "@/types/userTypes";
 import { NotFoundException } from "@/utils/errorUtils";
 import { hash } from "bcrypt";
 
-export const updateUserByIdHandler: Handler = async ({
+export const updateUserByIdHandler: UserOperationsHandlers["update"] = async ({
   userId,
   name,
   email,

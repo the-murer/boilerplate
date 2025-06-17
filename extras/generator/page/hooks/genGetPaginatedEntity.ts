@@ -1,6 +1,6 @@
 import { BaseObject } from "@/types/generatorTypes";
 
-export function generateGetManyHook(obj: BaseObject) {
+export function generateGetPaginatedHook(obj: BaseObject) {
   const { entity } = obj;
 
   const hook = `
@@ -8,9 +8,9 @@ import { getQueryString, pageFetcher } from "@/utils/apiUtils";
 import { PaginationType } from "@/utils/pagination";
 import { useQuery } from "@tanstack/react-query";
 
-const get${entity.pluralPascal()}Key = "${entity.pluralCamel()}";
+const get${entity.pluralPascal()}PaginatedKey = "${entity.pluralCamel()}Paginated";
 
-const get${entity.pluralPascal()} = async ({
+const get${entity.pluralPascal()}Paginated = async ({
   page,
   limit,
   sortField,
@@ -28,7 +28,7 @@ const get${entity.pluralPascal()} = async ({
     method: "GET",
   });
 
-export const useGet${entity.pluralPascal()} = ({
+export const useGet${entity.pluralPascal()}Paginated = ({
   page,
   limit,
   sortField,
@@ -36,9 +36,9 @@ export const useGet${entity.pluralPascal()} = ({
   ...aditionalParams
 }: PaginationType) => {
   return useQuery({
-    queryKey: [get${entity.pluralPascal()}Key, page, limit, sortField, sortOrder, aditionalParams],
+    queryKey: [get${entity.pluralPascal()}PaginatedKey, page, limit, sortField, sortOrder, aditionalParams],
     queryFn: () =>
-      get${entity.pluralPascal()}({
+      get${entity.pluralPascal()}Paginated({
         page,
         limit,
         sortField,

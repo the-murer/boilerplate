@@ -1,12 +1,12 @@
-import { GetUsersHandler as Handler } from "@/api/user/serializers/getUsersSerializer";
-import { PaginationType, SortEnum } from "@/utils/pagination";
+import { SortEnum } from "@/utils/pagination";
 import dbConnect from "@/database/dbConnect";
 import { findUsersWithPagination } from "@/database/repository/userRepository";
-import { userSchema } from "@/types/userTypes";
+import { User, userSchema } from "@/types/userTypes";
+import { UserOperationsHandlers } from "@/types/userTypes";
 
 const sanitizedUserSchema = userSchema.omit({ password: true });
 
-export const getUsersHandler: Handler = async ({
+export const getUsersHandler: UserOperationsHandlers["getPaginated"] = async ({
   page,
   limit,
   sortField,
@@ -25,7 +25,7 @@ export const getUsersHandler: Handler = async ({
     email,
   });
 
-  const data = users.map((user) => sanitizedUserSchema.parse(user));
+  const data = users.map((user: User) => sanitizedUserSchema.parse(user));
 
-  return { success: true, users: data, metadata };
+  return { success: true, items: data, metadata };
 };

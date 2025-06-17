@@ -14,7 +14,7 @@ export type PaginationType = {
 };
 
 
-export const basePaginationResolver = z.object({
+export const paginatedSerializer = z.object({
   page: z.number().min(0),
   limit: z.number().min(0),
   sortField: z.string().optional().nullable(),

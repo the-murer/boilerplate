@@ -1,12 +1,14 @@
-import { GetUserByIdHandler as Handler } from "@/api/user/serializers/getUserByIdSerializer";
 import { NotFoundException } from "@/utils/errorUtils";
 import dbConnect from "@/database/dbConnect";
 import { findUserById } from "@/database/repository/userRepository";
 import { userSchema } from "@/types/userTypes";
+import { UserOperationsHandlers } from "@/types/userTypes";
 
 const sanitizedUserSchema = userSchema.omit({ password: true });
 
-export const getUserByIdHandler: Handler = async ({ userId }) => {
+export const getUserByIdHandler: UserOperationsHandlers["getById"] = async ({
+  userId,
+}) => {
   await dbConnect();
   const user = await findUserById(userId);
 
@@ -18,6 +20,3 @@ export const getUserByIdHandler: Handler = async ({ userId }) => {
 
   return { success: true, user: sanitizedUser };
 };
-
-
-

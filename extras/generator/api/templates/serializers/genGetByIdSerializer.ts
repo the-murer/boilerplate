@@ -11,7 +11,7 @@ export function generateGetByIdSerializer(obj: BaseObject) {
   import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
   
   const get${entity.pascalCase()}ByIdInput = z.object({
-    ${entity.camelCase()}Id: z.string({ required_error: \`Id do \${entity.pascalCase()} é obrigatório\` }),
+    ${entity.camelCase()}Id: z.string({ required_error: \`Id do ${entity.pascalCase()} é obrigatório\` }),
   });
   
   // === API HANDLERS ===

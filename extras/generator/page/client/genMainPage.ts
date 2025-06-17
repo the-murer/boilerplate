@@ -17,7 +17,7 @@ import ComponentAbilityCheck from "@/modules/auth/componentAbilityCheck";
 import TableAction from "@/ui/stories/blocks/table/tableAction";
 
 import { ${entity.pascalCase()} } from "@/types/${entity.camelCase()}Types";
-import { useGet${entity.pluralPascal()} } from "@/modules/${entity.camelCase()}/hooks/useGet${entity.pluralPascal()}";
+import { useGet${entity.pluralPascal()}Paginated } from "@/modules/${entity.camelCase()}/hooks/useGet${entity.pluralPascal()}Paginated";
 import ${entity.pascalCase()}Filters from "@/modules/${entity.camelCase()}/components/${entity.camelCase()}Filters";
 import Create${entity.pascalCase()}Modal from "@/modules/${entity.camelCase()}/components/create${entity.pascalCase()}Modal";
 import Update${entity.pascalCase()}Modal from "@/modules/${entity.camelCase()}/components/update${entity.pascalCase()}Modal";
@@ -59,7 +59,7 @@ const List${entity.pascalCase()} = () => {
     aditionalParams,
   } = useUrlParams();
 
-  const { data, isLoading, error } = useGet${entity.pluralPascal()}({
+  const { data, isLoading, error } = useGet${entity.pluralPascal()}Paginated({
     page,
     limit,
     sortField,

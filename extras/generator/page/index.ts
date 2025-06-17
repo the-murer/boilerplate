@@ -7,7 +7,7 @@ import { generateDeleteModal } from "./components/genDeleteModal";
 import { generateEntityForm } from "./components/genEntityForm";
 import { generateListFilters } from "./components/genListFilters";
 import { generateGetHook } from "./hooks/genGetEntity";
-import { generateGetManyHook } from "./hooks/genGetManyEntity";
+import { generateGetPaginatedHook } from "./hooks/genGetPaginatedEntity";
 import { generateCreateHook } from "./hooks/genCreateEntity";
 import { generateUpdateHook } from "./hooks/genUpdateEntity";
 import { generateDeleteHook } from "./hooks/genDeleteEntity";
@@ -53,8 +53,8 @@ function generateHooks(obj: BaseObject) {
     `modules/${entity.camelCase()}/hooks/useGet${entity.pascalCase()}.ts`
   );
   writeFile(
-    generateGetManyHook(obj),
-    `modules/${entity.camelCase()}/hooks/useGet${entity.pluralPascal()}.ts`
+    generateGetPaginatedHook(obj),
+    `modules/${entity.camelCase()}/hooks/useGet${entity.pluralPascal()}Paginated.ts`
   );
   writeFile(
     generateCreateHook(obj),
